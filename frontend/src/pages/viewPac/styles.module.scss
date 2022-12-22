@@ -1,0 +1,92 @@
+.container{
+    max-width: 720px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+
+    span{
+        margin: 10px;
+    }
+}
+
+.containerHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+    .buttonEdit{
+        padding: 10px;
+        color: var(--white);
+        font-weight: bold;
+        background-color: rgb(52, 124, 231);
+        border: 0;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+}
+.containerSubHeader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+
+    .buttonAdd{
+        padding: 10px;
+        color: var(--white);
+        font-weight: bold;
+        background-color: rgb(52, 124, 231);
+        border: 0;
+        border-radius: 10px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.containerPac{
+    height: auto;
+    margin-top: 0.5rem;
+    padding: 1rem;
+}
+
+.listOrders{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 1rem;
+}
+
+.listHeader{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(236, 236, 236);
+    font-weight: bold;
+    justify-content: space-around;
+    border-radius: 1rem 1rem 0 0;
+
+    td{
+        margin: 1rem ;
+    }
+}
+
+.orderItem{
+    display: flex;
+    flex-direction: row;
+    border-radius: 0 0 1rem 1rem;
+    margin: 0 10px 0 10px;
+
+    button{
+        width: 100%;
+        margin-top: 0.5rem;
+        border: 0;
+        background: transparent;
+        font-size: 1.2rem;
+        height: 30px;
+
+        hr{
+            width: 100%;
+        }
+    }
+}
+
