@@ -33,7 +33,7 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + Usuário conseguir editar seus dados
 + Usuário conseguir editar as informações do paciente
 + Divisão entre Usuário: professor e aluno
-+ Ajuste na exibição das Tabelas
++ Ajuste na exibição das Tabelas (Richard)
 + Ajustar erros do typescript
 + Fazer a altenticação no backend para usar endpoints
 Lista de correções - 26/12/2022:
@@ -41,7 +41,7 @@ Lista de correções - 26/12/2022:
 + Os campos com box dropdown devem vir com um valor default setado
 + Inserir a tabela/form de insercao no CEPSI
 + Nos prontuarios identificar pelo login quem está preenchendo o prontuário
-+ data de nacimento está pegando dia atual
++ data de nacimento está pegando dia atual (Richard)
 + No prontuario colocar os campos de data, horario e responsavel pelo atendimento (pegar lista dos usuarios)
 + editar os historicos de prontuario
 + Sair do cadastro do paciente para a lista de pacientes do usuario
@@ -49,4 +49,4 @@ Lista de correções - 26/12/2022:
 + Apresentar a lista dos prontuarios em ordem de data decrescente
 + imprimir ficha dos prontuarios e paciente separadas
 + organizar layout de apresentacao das listas de pacientes e dos prontuarios
-+ permitir editar os pacientes e prontuarios.
++ permitir editar os pacientes (Richard) e prontuarios.
