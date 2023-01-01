@@ -133,16 +133,16 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
                         {chartList.map(item => (
                             <tr key={item.id} className={styles.orderItem}>
-                                <button onClick={() => handleOpenModal(item.id)}>
+                                <button className={styles.buttonItem} onClick={() => handleOpenModal(item.id)}>
                                 <hr />
                                     <div className={styles.buttonContent}>
-                                        <td>{(item.title).substring(0, 20)} |</td>
-                                        <td>{(item.description).substring(0, 20) + '...'} |</td>
+                                        <td>{(item.title).substring(0, 20)}</td>
+                                        <td>{(item.description).substring(0, 30) + '...'}</td>
                                         <td>{dateConvertChart(item)}</td>
                                     </div>
                                 </button>
                             </tr>
-                        ))}
+                        ))};
 
                     </table>
                 </main>

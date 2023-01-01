@@ -66,7 +66,7 @@
     border-radius: 1rem 1rem 0 0;
 
     td{
-        margin: 1rem ;
+        margin: 1rem 0 1rem 3rem ;
     }
 }
 
@@ -76,7 +76,7 @@
     border-radius: 0 0 1rem 1rem;
     margin: 0 10px 0 10px;
 
-    button{
+    .buttonItem{
         width: 100%;
         margin-top: 0.5rem;
         border: 0;
@@ -84,7 +84,18 @@
         font-size: 1.2rem;
         height: 30px;
 
+        .buttonContent{
+            display: flex;
+            justify-content: space-between;
+
+            td{
+                width: 33%;
+                align-items: center;
+            }
+        }
+
         hr{
+            margin-bottom: 0.5rem;
             width: 100%;
         }
     }
