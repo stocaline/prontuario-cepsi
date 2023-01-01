@@ -59,8 +59,8 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
         return dataFormatadaChart;
     }
 
-    function dateConvertPac({ ultima_visita }: PacProps) {
-        var data = new Date(ultima_visita);
+    function dateConvertPac({ data_nascimento }: PacProps) {
+        var data = new Date(data_nascimento);
         var dataFormatada = data.toLocaleDateString('pt-BR', {
             timeZone: 'UTC'
         });
