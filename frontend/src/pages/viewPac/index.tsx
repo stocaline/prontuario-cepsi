@@ -6,11 +6,12 @@ import { AiFillEdit, AiOutlinePlus } from 'react-icons/ai'
 import { setupAPIClient } from '../../services/api'
 import { useState } from 'react'
 import { ModalChart } from '../../components/ModalChart'
+import { ModalEditPac } from '../../components/ModalEditPac'
 import Modal from 'react-modal';
 import { parseCookies, destroyCookie } from 'nookies';
 import Link from 'next/link';
 
-type PacProps = {
+export type PacProps = {
     id: number,
     nome: string,
     data_nascimento: string,
@@ -22,6 +23,7 @@ type PacProps = {
     profissao: string,
     estado_civil: string,
     local_trabalho: string,
+    renda_familiar: number,
     email: string,
     menor_idade: boolean,
     nome_resp: string,
@@ -49,7 +51,9 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
     const [modalItem, setModalItem] = useState<ChartProps[]>()
     const [modalVisible, setModalVisible] = useState(false)
-
+    
+    const [modalEditPac, setModalEditPac] = useState(pacs || [])
+    const [modalEditPacVisible, setModalEditPacVisible] = useState(false)
 
     function dateConvertChart({ date }: ChartProps) {
         var data = new Date(date);
@@ -69,6 +73,15 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
     function handleCloseModal() {
         setModalVisible(false)
+    }
+    
+    function handleCloseModalEdit() {
+        setModalEditPacVisible(false)
+    }
+
+    async function handleOpenEditPac() {
+        setModalEditPac(pacList);
+        setModalEditPacVisible(true);
     }
 
     async function handleOpenModal(id: number) {
@@ -93,7 +106,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                 <main className={styles.container}>
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
-                        <button className={styles.buttonEdit}>
+                        <button className={styles.buttonEdit} onClick={ () => handleOpenEditPac()}>
                             <AiFillEdit size={20} />
                         </button>
                     </div>
@@ -111,6 +124,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                                     <p>Profissão: {item.profissao}</p>
                                     <p>Estado Civil: {item.estado_civil}</p>
                                     <p>Locar de Trabalho: {item.local_trabalho}</p>
+                                    <p>Renda Familiar: {item.renda_familiar}</p>
                                     <p>Email: {item.email}</p>
                                 </div>
                             </div>
@@ -137,15 +151,23 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                                 <hr />
                                     <div className={styles.buttonContent}>
                                         <td>{(item.title).substring(0, 20)}</td>
-                                        <td>{(item.description).substring(0, 30) + '...'}</td>
+                                        <td>{(item.description).substring(0, 20) + '...'}</td>
                                         <td>{dateConvertChart(item)}</td>
                                     </div>
                                 </button>
                             </tr>
-                        ))};
+                        ))}.
 
                     </table>
                 </main>
+
+                {modalEditPacVisible &&(
+                        <ModalEditPac
+                        isOpen={modalEditPacVisible}
+                        onRequestClose={handleCloseModalEdit}
+                        pac={modalEditPac}
+                    />
+                )}
 
                 {modalVisible && (
                     <ModalChart

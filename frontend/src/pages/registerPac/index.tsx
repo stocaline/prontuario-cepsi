@@ -121,7 +121,6 @@ export default function RegisterPac({ id }: IdOwner) {
 
                         <input
                             type="date"
-                            placeholder='Digite o nome do paciente'
                             className={styles.input}
                             value={date}
                             onChange={(e) => setDate(e.target.value)}

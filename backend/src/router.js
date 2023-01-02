@@ -59,7 +59,6 @@ router.post('/pac/register',
 );
 
 router.put('/pac/update/:id',
-  userMiddleware.veridateJWT,
   pacController.updatePac
 );
 

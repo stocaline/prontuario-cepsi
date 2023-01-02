@@ -32,7 +32,7 @@ const deletePac = async(req, res) => {
 const updatePac = async(req, res) =>{
   const { id } = req.params;
   await pacModel.updatePac(id, req.body);
-  return res.status(204).json();
+  return res.status(200).json();
 };
 
 const registerChart = async(req, res) =>{
