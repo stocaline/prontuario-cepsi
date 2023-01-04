@@ -42,7 +42,7 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 
 #### Lista de correções - 26/12/2022:
 + Tirar obrigatoriedade de preencher todos os campos da ficha do paciente - (Ibsem)
-+ Os campos com box dropdown devem vir com um valor default setado - (Ibsem)
++ Os campos com box dropdown devem vir com um valor default setado - ☑️
 + Inserir a tabela/form de insercao no CEPSI
 + Nos prontuarios identificar pelo login quem está preenchendo o prontuário
 + data de nacimento está pegando dia atual ☑️
