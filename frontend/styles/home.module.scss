@@ -1,10 +1,25 @@
-.containerCenter{
+.container{
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    background: linear-gradient(15deg ,#3b0303 5%, crimson 80%);
+}
+
+.containerCenter{ 
     background-color: var(--gray);
+    border-radius: 1rem;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+    align-content: center;
+    align-items: center;
+    justify-content: space-between;
+    justify-items: center;
+}
+
+.img{
+    padding-left: 5vw;
 }
 
 .login{

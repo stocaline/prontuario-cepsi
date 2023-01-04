@@ -52,11 +52,47 @@ export default function RegisterPac({ id }: IdOwner) {
 
     async function handleRegister(event: FormEvent) {
         event.preventDefault();
-
+        let message: string = ''
         try {
+            if (name === '') {
+                message = message + " nome "
+            }
+            if (date === '') {
+                message = message + " data de nascimento "
+            }
+            if (schooling === '') {
+                message = message + " escolaridade "
+            }
+            if (rg === '') {
+                message = message + " RG "
+            }
+            if (cpf === '') {
+                message = message + "  CPF "
+            }
+            if (district === '') {
+                message = message + "  Bairro "
+            }
+            if (phone === '') {
+                message = message + "  Telefone "
+            }
+            if (career === '') {
+                message = message + " Profissão "
+            }
+            if (status === '') {
+                message = message + " Estado Civil "
+            }
+            if (workplace === '') {
+                message = message + "  Local de trabalho "
+            }
+            if (familyIncome === '') {
+                message = message + "  Renda Familiar "
+            }
+            if (email === '') {
+                message = message + "  Email "
+            }
 
-            if (name === '' || date === '' || schooling === '' || rg === '' || cpf === '' || district === '' || phone === '' || career === '' || status === '' || workplace === '' || familyIncome === '' || email === '') {
-                toast.error("Preencha todos os campos");
+            if (message !== '') {
+                toast.error('Preencha os campos: ' + message);
                 return;
             }
 
@@ -111,23 +147,32 @@ export default function RegisterPac({ id }: IdOwner) {
                         </Link>
                     </div>
                     <form className={styles.form} onSubmit={handleRegister}>
-                        <input
-                            type="text"
-                            placeholder='Digite o nome do paciente'
-                            className={styles.input}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-
-                        <input
-                            type="date"
-                            className={styles.input}
-                            value={date}
-                            onChange={(e) => setDate(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="text"
+                                placeholder=' '
+                                className={styles.input}
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Nome:
+                            </label>
+                        </div>
+                        <div className={styles.formComponent}>
+                            <input
+                                type="date"
+                                className={styles.input}
+                                value={date}
+                                onChange={(e) => setDate(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Data de Nascimento:
+                            </label>
+                        </div>
 
                         <select value={schooling} onChange={handleChangeSchooling}>
-                            <option>
+                            <option selected>
                                 Ensino Fundamental Incompleto
                             </option>
                             <option>
@@ -147,49 +192,73 @@ export default function RegisterPac({ id }: IdOwner) {
                             </option>
                         </select>
 
-                        <input
-                            type="number"
-                            placeholder='Digite o RG do paciente'
-                            className={styles.input}
-                            value={rg}
-                            onChange={(e) => setRg(e.target.value)}
+                        <div className={styles.formComponent}>
+                            <input
+                                type="number"
+                                placeholder=' '
+                                className={styles.input}
+                                value={rg}
+                                onChange={(e) => setRg(e.target.value)}
 
-                        />
+                            />
+                            <label className={styles.placeholder}>
+                                RG:
+                            </label>
+                        </div>
+                        <div className={styles.formComponent}>
+                            <input
+                                type="number"
+                                placeholder=' '
+                                className={styles.input}
+                                value={cpf}
+                                onChange={(e) => setCpf(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                CPF:
+                            </label>
+                        </div>
 
-                        <input
-                            type="number"
-                            placeholder='Digite o CPF do paciente'
-                            className={styles.input}
-                            value={cpf}
-                            onChange={(e) => setCpf(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="text"
+                                placeholder=' '
+                                className={styles.input}
+                                value={district}
+                                onChange={(e) => setDistrict(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Bairro:
+                            </label>
+                        </div>
 
-                        <input
-                            type="text"
-                            placeholder='Digite o bairro do paciente'
-                            className={styles.input}
-                            value={district}
-                            onChange={(e) => setDistrict(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="number"
+                                placeholder=' '
+                                className={styles.input}
+                                value={phone}
+                                onChange={(e) => setPhone(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Telefone:
+                            </label>
+                        </div>
 
-                        <input
-                            type="number"
-                            placeholder='Digite o telefone do paciente'
-                            className={styles.input}
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                        />
-
-                        <input
-                            type="text"
-                            placeholder='Digite a profissão do paciente'
-                            className={styles.input}
-                            value={career}
-                            onChange={(e) => setCareer(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="text"
+                                placeholder=' '
+                                className={styles.input}
+                                value={career}
+                                onChange={(e) => setCareer(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Profissão:
+                            </label>
+                        </div>
 
                         <select value={status} onChange={handleChangeStatus}>
-                            <option>
+                            <option selected>
                                 Solteiro
                             </option>
                             <option>
@@ -197,29 +266,44 @@ export default function RegisterPac({ id }: IdOwner) {
                             </option>
                         </select>
 
-                        <input
-                            type="text"
-                            placeholder='Digite o Local de trabalho do paciente'
-                            className={styles.input}
-                            value={workplace}
-                            onChange={(e) => setWorkplace(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="text"
+                                placeholder=' '
+                                className={styles.input}
+                                value={workplace}
+                                onChange={(e) => setWorkplace(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Local de Trabalho:
+                            </label>
+                        </div>
 
-                        <input
-                            type="number"
-                            placeholder='Digite a renda familiar do paciente'
-                            className={styles.input}
-                            value={familyIncome}
-                            onChange={(e) => setFamilyIncome(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="number"
+                                placeholder=' '
+                                className={styles.input}
+                                value={familyIncome}
+                                onChange={(e) => setFamilyIncome(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Renda Familiar:
+                            </label>
+                        </div>
 
-                        <input
-                            type="text"
-                            placeholder='Digite o email do paciente'
-                            className={styles.input}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
+                        <div className={styles.formComponent}>
+                            <input
+                                type="Email"
+                                placeholder=' '
+                                className={styles.input}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <label className={styles.placeholder}>
+                                Email:
+                            </label>
+                        </div>
 
                         <button className={styles.buttonAdd} type='submit'>
                             Cadastrar

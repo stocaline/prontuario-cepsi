@@ -41,17 +41,43 @@
         padding: 0 0.5rem;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
-}
 
-.input{
-    border-radius: 0.3rem;
-    margin-bottom: 1rem;
-    color: gray;
-    background-color: var(--white);
-    border: 1px solid gray;
-    height: 40px;
-    padding: 0 0.5rem;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    .formComponent{
+        position: relative;
+    }
+
+    .formComponent input{
+        width: 100%;
+        border-radius: 0.3rem;
+        margin-bottom: 1rem;
+        color: gray;
+        outline: none;
+        background-color: var(--white);
+        border: 1px solid gray;
+        height: 40px;
+        padding: 0 0.5rem;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .formComponent label{
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 1rem;
+        padding: 0px 5px;
+        color: gray;
+        transition: 0.3s;
+        pointer-events: none;
+    }
+
+
+    .input:focus + .placeholder,
+    .input:not(:placeholder-shown)
+    + .placeholder{
+        top: -10px;
+        color: #303030;
+        background-color: var(--white);
+    }
 }
 
 .buttonAdd{

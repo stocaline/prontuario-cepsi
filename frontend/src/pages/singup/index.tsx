@@ -24,14 +24,14 @@ export default function SingUp() {
   async function handleSignUp(event: FormEvent) {
     event.preventDefault();
 
-    if(matricula === '' || name === '' || password === ''){
+    if (matricula === '' || name === '' || password === '') {
       toast.error("Preencha todos os campos")
       return;
     }
 
     setLoading(true);
 
-    let data={
+    let data = {
       matricula,
       name,
       password
@@ -40,7 +40,7 @@ export default function SingUp() {
     await signUp(data);
 
     setLoading(false);
-    
+
   }
 
   return (
@@ -48,45 +48,47 @@ export default function SingUp() {
       <Head>
         <title>Prontuario CEPSI - Faça seu Cadastro</title>
       </Head>
-      <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Imagem Psicologa" />
+      <div className={styles.container}>
+        <div className={styles.containerCenter}>
+          <Image src={logoImg} alt="Imagem Psicologa" className={styles.img}/>
 
-        <div className={styles.login}>
+          <div className={styles.login}>
             <h1>Criando sua conta</h1>
-          <form onSubmit={handleSignUp}>
-            <Input
-              placeholder="Digite sua matricula"
-              type="text"
-              value={matricula}
-              onChange={ (e) => setMatricula(e.target.value)}
-            />
+            <form onSubmit={handleSignUp}>
+              <Input
+                placeholder="Digite sua matricula"
+                type="text"
+                value={matricula}
+                onChange={(e) => setMatricula(e.target.value)}
+              />
 
-            <Input
-              placeholder="Digite seu nome"
-              type="text"
-              value={name}
-              onChange={ (e) => setName(e.target.value)}
-            />
+              <Input
+                placeholder="Digite seu nome"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
 
-            <Input
-              placeholder="Digite sua senha"
-              type="password"
-              value={password}
-              onChange={ (e) => setPassword(e.target.value)}
-            />
+              <Input
+                placeholder="Digite sua senha"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-            <Button
-              type="submit"
-              loading={loading}
-            >
-              Acessar
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                loading={loading}
+              >
+                Acessar
+              </Button>
+            </form>
 
-          <Link href="/">
-            <p className={styles.text}>Já possue uma conta? Faça login</p>
-          </Link>
+            <Link href="/">
+              <p className={styles.text}>Já possue uma conta? Faça login</p>
+            </Link>
 
+          </div>
         </div>
       </div>
     </>

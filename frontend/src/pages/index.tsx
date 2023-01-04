@@ -13,26 +13,26 @@ import { AuthContext } from '../contexts/AuthContext';
 import Link from 'next/link';
 
 import { canSSRGuest } from '../utils/canSSRGuest'
- 
+
 export default function Home() {
   const { signIn } = useContext(AuthContext)
 
   const [matricula, setMatricula] = useState('');
   const [password, setPassword] = useState('');
-  
+
   const [loading, setLoading] = useState(false);
 
-  async function handleLogin(event: FormEvent){
+  async function handleLogin(event: FormEvent) {
     event.preventDefault();
 
-    if(matricula == '' || password === ''){
+    if (matricula == '' || password === '') {
       toast.warning("Preencha os dados")
       return;
     }
 
     setLoading(true);
 
-    let data ={
+    let data = {
       matricula,
       password
     }
@@ -47,37 +47,39 @@ export default function Home() {
       <Head>
         <title>Prontuario CEPSI - Faça seu login</title>
       </Head>
-      <div className={styles.containerCenter}>
-        <Image src={logoImg} alt="Imagem Psicologa" />
+      <div className={styles.container}>
+        <div className={styles.containerCenter}>
+          <Image src={logoImg} alt="Imagem Psicologa" className={styles.img} />
 
-        <div className={styles.login}>
-          <form onSubmit={handleLogin}>
-            <Input
-              placeholder="Digite sua matricula"
-              type="text"
-              value={matricula}
-              onChange={ (e) => setMatricula(e.target.value)}
-            />
+          <div className={styles.login}>
+            <form onSubmit={handleLogin}>
+              <Input
+                placeholder="Digite sua matricula"
+                type="text"
+                value={matricula}
+                onChange={(e) => setMatricula(e.target.value)}
+              />
 
-            <Input
-              placeholder="Digite sua senha"
-              type="password"
-              value={password}
-              onChange={ (e) => setPassword(e.target.value)}
-            />
+              <Input
+                placeholder="Digite sua senha"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
-            <Button
-              type="submit"
-              loading={loading}
-            >
-              Acessar
-            </Button>
-          </form>
+              <Button
+                type="submit"
+                loading={loading}
+              >
+                Acessar
+              </Button>
+            </form>
 
-          <Link href="/singup">
-            <p className={styles.text}>Não possui uma conta? Cadastre-se</p>
-          </Link>
+            <Link href="/singup">
+              <p className={styles.text}>Não possui uma conta? Cadastre-se</p>
+            </Link>
 
+          </div>
         </div>
       </div>
     </>
@@ -86,7 +88,7 @@ export default function Home() {
 
 
 export const getServerSideProps = canSSRGuest(async (ctx) => {
-  return{
-    props:{}
+  return {
+    props: {}
   }
 })
