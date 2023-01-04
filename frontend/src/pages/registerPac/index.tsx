@@ -20,13 +20,13 @@ export default function RegisterPac({ id }: IdOwner) {
 
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
-    const [schooling, setSchooling] = useState('');
+    const [schooling, setSchooling] = useState('Ensino Fundamental Incompleto');
     const [rg, setRg] = useState('');
     const [cpf, setCpf] = useState('');
     const [district, setDistrict] = useState('');
     const [phone, setPhone] = useState('');
     const [career, setCareer] = useState('');
-    const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('Solteiro');
     const [workplace, setWorkplace] = useState('');
     const [familyIncome, setFamilyIncome] = useState('');
     const [email, setEmail] = useState('');
