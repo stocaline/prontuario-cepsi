@@ -21,14 +21,14 @@ export default function RegisterPac({ id }: IdOwner) {
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [schooling, setSchooling] = useState('Ensino Fundamental Incompleto');
-    const [rg, setRg] = useState('');
-    const [cpf, setCpf] = useState('');
+    const [rg, setRg] = useState(0);
+    const [cpf, setCpf] = useState(0);
     const [district, setDistrict] = useState('');
     const [phone, setPhone] = useState('');
     const [career, setCareer] = useState('');
     const [status, setStatus] = useState('Solteiro');
     const [workplace, setWorkplace] = useState('');
-    const [familyIncome, setFamilyIncome] = useState('');
+    const [familyIncome, setFamilyIncome] = useState(0);
     const [email, setEmail] = useState('');
 
     const [minor, setMinor] = useState('');
@@ -60,37 +60,12 @@ export default function RegisterPac({ id }: IdOwner) {
             if (date === '') {
                 message = message + " data de nascimento "
             }
-            if (schooling === '') {
-                message = message + " escolaridade "
-            }
-            if (rg === '') {
-                message = message + " RG "
-            }
-            if (cpf === '') {
-                message = message + "  CPF "
-            }
-            if (district === '') {
-                message = message + "  Bairro "
-            }
             if (phone === '') {
                 message = message + "  Telefone "
-            }
-            if (career === '') {
-                message = message + " Profissão "
-            }
-            if (status === '') {
-                message = message + " Estado Civil "
-            }
-            if (workplace === '') {
-                message = message + "  Local de trabalho "
-            }
-            if (familyIncome === '') {
-                message = message + "  Renda Familiar "
             }
             if (email === '') {
                 message = message + "  Email "
             }
-
             if (message !== '') {
                 toast.error('Preencha os campos: ' + message);
                 return;
@@ -197,8 +172,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                value={rg}
-                                onChange={(e) => setRg(e.target.value)}
+                                onChange={(e) => setRg(e.target.valueAsNumber)}
 
                             />
                             <label className={styles.placeholder}>
@@ -210,8 +184,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                value={cpf}
-                                onChange={(e) => setCpf(e.target.value)}
+                                onChange={(e) => setCpf(e.target.valueAsNumber)}
                             />
                             <label className={styles.placeholder}>
                                 CPF:
@@ -284,8 +257,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                value={familyIncome}
-                                onChange={(e) => setFamilyIncome(e.target.value)}
+                                onChange={(e) => setFamilyIncome(e.target.valueAsNumber)}
                             />
                             <label className={styles.placeholder}>
                                 Renda Familiar:
