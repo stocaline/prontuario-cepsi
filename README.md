@@ -41,14 +41,14 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + Fazer a altenticação no backend para usar endpoints
 
 #### Lista de correções - 26/12/2022:
-+ Tirar obrigatoriedade de preencher todos os campos da ficha do paciente - (Ibsem)
++ Tirar obrigatoriedade de preencher todos os campos da ficha do paciente ☑️
 + Os campos com box dropdown devem vir com um valor default setado - ☑️
 + Inserir a tabela/form de insercao no CEPSI
 + Nos prontuarios identificar pelo login quem está preenchendo o prontuário
 + data de nacimento está pegando dia atual ☑️
 + No prontuario colocar os campos de data, horario e responsavel pelo atendimento (pegar lista dos usuarios)
 + editar os historicos de prontuario
-+ Sair do cadastro do paciente para a lista de pacientes do usuario
++ Sair do cadastro do paciente para a lista de pacientes do usuario ☑️
 + trocar os tipo int par BIGINT no MySQL nos campos do Cadastro do PAciente - (Ibsem)
 + Apresentar a lista dos prontuarios em ordem de data decrescente
 + imprimir ficha dos prontuarios e paciente separadas
