@@ -7,13 +7,6 @@ import Router from 'next/router'
 
 import { toast } from 'react-toastify'
 
-type AuthContextData = {
-    user: UserProps;
-    isAuthenticated: boolean;
-    signIn: (credential: SignInProps) => Promise<void>;
-    signOut: () => void;
-    signUp: (credential: SignUpProps) => Promise<void>
-}
 
 type UserProps = {
     id: number;
@@ -30,6 +23,14 @@ type SignUpProps = {
     matricula: string;
     name: string;
     password: string;
+}
+
+type AuthContextData = {
+    user: UserProps;
+    isAuthenticated: boolean;
+    signIn: (credential: SignInProps) => Promise<void>;
+    signOut: () => void;
+    signUp: (credential: SignUpProps) => Promise<void>
 }
 
 type AuthProviderProps = {
@@ -50,7 +51,7 @@ export function signOut(){
 }
 
 export function AuthProvider({ children }: AuthProviderProps){
-    const [user, setUser] = useState<UserProps>()
+    const [user, setUser] = useState<UserProps | null>(null)
     const isAuthenticated = !!user;
 
     async function signIn({matricula, password}: SignInProps){

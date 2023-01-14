@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import Head from 'next/head';
 import Link from 'next/link';
