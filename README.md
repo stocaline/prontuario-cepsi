@@ -16,6 +16,7 @@ MYSQL_HOST= (Porta que o banco está rodando Exemplo: localhost ou 127.0.0.1)
 MYSQL_USER= (Usuario do mysql. Exemplo: root)
 MYSQL_PASSWORD= (Senha do mysql. Exemplo: root)
 MYSQL_DB= (Nome do database. Exemplo: banco)
+SECRET= (Chave unica para configurar JWT. Exemplo: chave)
 ````
 Com a instalação completa, basta rodar o comando ````npm run dev````
 
