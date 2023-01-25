@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
-const SECRET = 'apicepsi';
+require('dotenv').config();
+const SECRET = process.env.SECRET;
 
 const validateFieldName = (req, res, next) => {
   const { body } = req;
