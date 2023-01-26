@@ -84,29 +84,6 @@ export default function Dashboard({ pacs }: HomeProps) {
                             ))}
                         </tbody>
                     </table>
-
-
-                    {/*                     <table className={styles.listOrders}>
-                        <tr className={styles.listHeader}>
-                            <td>id</td>
-                            <td>Nome do Paciente</td>
-                            <td>Ultima visita</td>
-                        </tr>
-
-                        {pacList.map( item => (
-                            <tr key={item.id} className={styles.orderItem}>
-                                <button className={styles.buttonItem} onClick={ () => handleOpenViewPac(item.id)}>
-                                        <hr/>
-                                    <div className={styles.buttonContent}>
-                                        <th scope="row">{item.id}</th>
-                                        <td>{item.nome}</td>
-                                        <td>{dateConvert(item)}</td>
-                                    </div>
-                                </button>
-                            </tr>
-                        ))}
-
-                    </table> */}
                 </main>
             </div>
         </>
