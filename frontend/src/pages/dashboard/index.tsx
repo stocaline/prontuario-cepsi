@@ -33,15 +33,15 @@ interface HomeProps {
     pacs: PacProps[];
 }
 
-function dateConvert({ultima_visita}: PacProps){
+function dateConvert({ ultima_visita }: PacProps) {
     var data = new Date(ultima_visita);
     var dataFormatada = data.toLocaleDateString('pt-BR', {
-      timeZone: 'UTC'
+        timeZone: 'UTC'
     });
     return dataFormatada;
 }
 
-export function handleOpenViewPac(id:string){
+export function handleOpenViewPac(id: string) {
     setCookie(undefined, '@nextpac.id', id);
     Router.push('/viewPac');
 }
@@ -69,6 +69,24 @@ export default function Dashboard({ pacs }: HomeProps) {
                     </div>
 
                     <table className={styles.listOrders}>
+                        <thead >
+                            <tr className={styles.listHeader}>
+                                <th>Nome do Paciente</th>
+                                <th>Ultima Visita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {pacList.map(item => (
+                                <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
+                                        <td id='value1'>{item.nome}</td>
+                                        <td id='value2'>{dateConvert(item)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+
+                    {/*                     <table className={styles.listOrders}>
                         <tr className={styles.listHeader}>
                             <td>id</td>
                             <td>Nome do Paciente</td>
@@ -88,7 +106,7 @@ export default function Dashboard({ pacs }: HomeProps) {
                             </tr>
                         ))}
 
-                    </table>
+                    </table> */}
                 </main>
             </div>
         </>
