@@ -138,7 +138,25 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                             </button>
                         </Link>
                     </div>
+
                     <table className={styles.listOrders}>
+                        <thead >
+                            <tr className={styles.listHeader}>
+                                <th>Titulo</th>
+                                <th>Data de Criação</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {chartList.map(item => (
+                                <tr key={item.id} onClick={ () => handleOpenModal(item.id)} className={styles.orderItem}>
+                                        <td>{(item.title).substring(0, 20)}</td>
+                                        <td>{dateConvertChart(item)}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+{/*                     <table className={styles.listOrders}>
                         <tr className={styles.listHeader}>
                             <td>Titulo</td>
                             <td>Descrição</td>
@@ -158,7 +176,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                             </tr>
                         ))}.
 
-                    </table>
+                    </table> */}
                 </main>
 
                 {modalEditPacVisible &&(

@@ -33,15 +33,15 @@ interface HomeProps {
     pacs: PacProps[];
 }
 
-function dateConvert({ultima_visita}: PacProps){
+function dateConvert({ ultima_visita }: PacProps) {
     var data = new Date(ultima_visita);
     var dataFormatada = data.toLocaleDateString('pt-BR', {
-      timeZone: 'UTC'
+        timeZone: 'UTC'
     });
     return dataFormatada;
 }
 
-export function handleOpenViewPac(id:string){
+export function handleOpenViewPac(id: string) {
     setCookie(undefined, '@nextpac.id', id);
     Router.push('/viewPac');
 }
@@ -69,25 +69,20 @@ export default function Dashboard({ pacs }: HomeProps) {
                     </div>
 
                     <table className={styles.listOrders}>
-                        <tr className={styles.listHeader}>
-                            <td>id</td>
-                            <td>Nome do Paciente</td>
-                            <td>Ultima visita</td>
-                        </tr>
-
-                        {pacList.map( item => (
-                            <tr key={item.id} className={styles.orderItem}>
-                                <button className={styles.buttonItem} onClick={ () => handleOpenViewPac(item.id)}>
-                                        <hr/>
-                                    <div className={styles.buttonContent}>
-                                        <th scope="row">{item.id}</th>
+                        <thead >
+                            <tr className={styles.listHeader}>
+                                <th>Nome do Paciente</th>
+                                <th>Ultima Visita</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {pacList.map(item => (
+                                <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
                                         <td>{item.nome}</td>
                                         <td>{dateConvert(item)}</td>
-                                    </div>
-                                </button>
-                            </tr>
-                        ))}
-
+                                </tr>
+                            ))}
+                        </tbody>
                     </table>
                 </main>
             </div>
