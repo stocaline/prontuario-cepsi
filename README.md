@@ -27,8 +27,7 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 
 
 # Newsletter📰:
-+ ⚠️ Correção do erro (Unhandled Runtime Error)⚠️ - (Richard)
-<br>
++ ⚠ Correção do erro (Unhandled Runtime Error)⚠ - ☑️
 
 + Nome de usuário desaparece ao reiniciar a pagina - (Richard)
 + Cadastro de paciente menor de idade - (Richard)
