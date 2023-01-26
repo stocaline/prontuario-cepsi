@@ -78,8 +78,8 @@ export default function Dashboard({ pacs }: HomeProps) {
                         <tbody>
                             {pacList.map(item => (
                                 <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
-                                        <td id='value1'>{item.nome}</td>
-                                        <td id='value2'>{dateConvert(item)}</td>
+                                        <td>{item.nome}</td>
+                                        <td>{dateConvert(item)}</td>
                                 </tr>
                             ))}
                         </tbody>
