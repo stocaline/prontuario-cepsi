@@ -26,7 +26,6 @@ const loginUser = async (req, res) => {
   try {
     const user = await userModel.loginUser(matricula);
     if (user) {
-      console.log(password)
       const passwordMath = await bcrypt.compare(password, user.password);
 
       if (passwordMath) {
