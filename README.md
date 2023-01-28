@@ -52,5 +52,5 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + trocar os tipo int par BIGINT no MySQL nos campos do Cadastro do PAciente - (Ibsem)
 + Apresentar a lista dos prontuarios em ordem de data decrescente
 + imprimir ficha dos prontuarios e paciente separadas
-+ organizar layout de apresentacao das listas de pacientes e dos prontuarios
++ organizar layout de apresentacao das listas de pacientes e dos prontuarios☑️
 + permitir editar prontuarios.
