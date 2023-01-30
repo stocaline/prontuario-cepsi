@@ -41,9 +41,18 @@ export default function RegisterPac({ id }: IdOwner) {
 
     function verifyIfMinor(date: string) {
         setDate(date)
-        let nowDate = new Date()
+
         let birthDate = new Date(date)
-        let age = nowDate.getFullYear() - birthDate.getFullYear()
+        var today = new Date();
+
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
         if (age > 17) {
             setMinor(false)
         } else {
