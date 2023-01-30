@@ -31,15 +31,34 @@ export default function RegisterPac({ id }: IdOwner) {
     const [familyIncome, setFamilyIncome] = useState(0);
     const [email, setEmail] = useState('');
 
-    const [minor, setMinor] = useState('');
+    const [minor, setMinor] = useState(false);
     const [accountable, setAccountable] = useState('');
     const [kindship, setKindship] = useState('');
     const [rgAccountable, setRgAccountable] = useState('');
-    const [cpfAccountable, seCpfAccountable] = useState('');
+    const [cpfAccountable, setCpfAccountable] = useState('');
 
     const [idOwner, seIdOwner] = useState(id);
 
+    function verifyIfMinor(date: string) {
+        setDate(date)
 
+        let birthDate = new Date(date)
+        var today = new Date();
+
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        if (age > 17) {
+            setMinor(false)
+        } else {
+            setMinor(true)
+        }
+    }
 
     function handleChangeSchooling(event: any) {
         setSchooling(event.target.value)
@@ -66,6 +85,12 @@ export default function RegisterPac({ id }: IdOwner) {
             if (email === '') {
                 message = message + "  Email "
             }
+            if (minor) {
+                if(accountable === '' || kindship === '' || rgAccountable === null ||cpfAccountable === null) {
+                message = message + "  Dados do Responsáveis "
+                }
+            }
+                
             if (message !== '') {
                 toast.error('Preencha os campos: ' + message);
                 return;
@@ -87,12 +112,12 @@ export default function RegisterPac({ id }: IdOwner) {
                 email: email,
 
                 id_dono: idOwner,
-                //-------------------ALTERAR--------------------------
-                menorIdade: false,
-                nomeResp: "",
-                parentesco: "",
-                rgResp: null,
-                cpfResp: null
+
+                menorIdade: minor,
+                nomeResp: accountable,
+                parentesco: kindship,
+                rgResp: rgAccountable,
+                cpfResp: cpfAccountable
             });
 
             toast.success("Paciente Cadastrado!");
@@ -139,7 +164,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="date"
                                 className={styles.input}
                                 value={date}
-                                onChange={(e) => setDate(e.target.value)}
+                                onChange={(e) => verifyIfMinor(e.target.value)}
                             />
                             <label className={styles.placeholder}>
                                 Data de Nascimento:
@@ -237,6 +262,12 @@ export default function RegisterPac({ id }: IdOwner) {
                             <option>
                                 Casado
                             </option>
+                            <option>
+                                Viuvo
+                            </option>
+                            <option>
+                                Divorciado
+                            </option>
                         </select>
 
                         <div className={styles.formComponent}>
@@ -276,6 +307,62 @@ export default function RegisterPac({ id }: IdOwner) {
                                 Email:
                             </label>
                         </div>
+
+
+                        {minor &&
+                            <div className={styles.accountableContainer}>
+                                <h2>Dados do Responsável</h2>
+
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="text"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={accountable}
+                                        onChange={(e) => setAccountable(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        Nome do responsável:
+                                    </label>
+                                </div>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="text"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={kindship}
+                                        onChange={(e) => setKindship(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        Parentesco:
+                                    </label>
+                                </div>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="number"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={rgAccountable}
+                                        onChange={(e) => setRgAccountable(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        RG do responsável:
+                                    </label>
+                                </div>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="number"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={cpfAccountable}
+                                        onChange={(e) => setCpfAccountable(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        CPF do Resposável:
+                                    </label>
+                                </div>
+                            </div>
+                        }
 
                         <button className={styles.buttonAdd} type='submit'>
                             Cadastrar
