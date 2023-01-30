@@ -298,7 +298,9 @@ export default function RegisterPac({ id }: IdOwner) {
 
 
                         {minor &&
-                            <div >
+                            <div className={styles.accountableContainer}>
+                                <h2>Dados do Responsável</h2>
+
                                 <div className={styles.formComponent}>
                                     <input
                                         type="text"
