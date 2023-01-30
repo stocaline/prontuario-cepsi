@@ -85,6 +85,12 @@ export default function RegisterPac({ id }: IdOwner) {
             if (email === '') {
                 message = message + "  Email "
             }
+            if (minor) {
+                if(accountable === '' || kindship === '' || rgAccountable === null ||cpfAccountable === null) {
+                message = message + "  Dados do Responsáveis "
+                }
+            }
+                
             if (message !== '') {
                 toast.error('Preencha os campos: ' + message);
                 return;
@@ -106,12 +112,12 @@ export default function RegisterPac({ id }: IdOwner) {
                 email: email,
 
                 id_dono: idOwner,
-                //-------------------ALTERAR--------------------------
-                menorIdade: false,
-                nomeResp: "",
-                parentesco: "",
-                rgResp: null,
-                cpfResp: null
+
+                menorIdade: minor,
+                nomeResp: accountable,
+                parentesco: kindship,
+                rgResp: rgAccountable,
+                cpfResp: cpfAccountable
             });
 
             toast.success("Paciente Cadastrado!");
@@ -256,6 +262,12 @@ export default function RegisterPac({ id }: IdOwner) {
                             <option>
                                 Casado
                             </option>
+                            <option>
+                                Viuvo
+                            </option>
+                            <option>
+                                Divorciado
+                            </option>
                         </select>
 
                         <div className={styles.formComponent}>
@@ -310,7 +322,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                         onChange={(e) => setAccountable(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
-                                        Nome do responsável
+                                        Nome do responsável:
                                     </label>
                                 </div>
                                 <div className={styles.formComponent}>
@@ -322,7 +334,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                         onChange={(e) => setKindship(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
-                                        Parentesco
+                                        Parentesco:
                                     </label>
                                 </div>
                                 <div className={styles.formComponent}>
@@ -334,19 +346,19 @@ export default function RegisterPac({ id }: IdOwner) {
                                         onChange={(e) => setRgAccountable(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
-                                        RG do responsável
+                                        RG do responsável:
                                     </label>
                                 </div>
                                 <div className={styles.formComponent}>
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder=' '
                                         className={styles.input}
                                         value={cpfAccountable}
                                         onChange={(e) => setCpfAccountable(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
-                                        CPF do Resposável
+                                        CPF do Resposável:
                                     </label>
                                 </div>
                             </div>
