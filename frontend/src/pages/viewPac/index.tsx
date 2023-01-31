@@ -1,15 +1,16 @@
-import Head from 'next/head';
+import Head from 'next/head'
 import { Header } from '../../components/Header'
-import { canSSRAuth } from '../../utils/canSSRAuth';
+import { canSSRAuth } from '../../utils/canSSRAuth'
 import styles from './styles.module.scss'
 import { AiFillEdit, AiOutlinePlus } from 'react-icons/ai'
+import Image from 'next/image'
 import { setupAPIClient } from '../../services/api'
 import { useState } from 'react'
 import { ModalChart } from '../../components/ModalChart'
 import { ModalEditPac } from '../../components/ModalEditPac'
 import Modal from 'react-modal';
-import { parseCookies, destroyCookie } from 'nookies';
-import Link from 'next/link';
+import { parseCookies, destroyCookie } from 'nookies'
+import Link from 'next/link'
 
 export type PacProps = {
     id: number,
@@ -51,9 +52,15 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
     const [modalItem, setModalItem] = useState<ChartProps[]>()
     const [modalVisible, setModalVisible] = useState(false)
-    
+
     const [modalEditPac, setModalEditPac] = useState(pacs || [])
     const [modalEditPacVisible, setModalEditPacVisible] = useState(false)
+
+    const [bottomTabs, setBottomTabs] = useState([
+        { state: 'main', label: 'Principal', active: true },
+        { state: 'chart', label: 'Prontuários', active: false },
+    ])
+    const [bottomTabsIndex, setBottomTabsIndex] = useState(0)
 
     function dateConvertChart({ date }: ChartProps) {
         var data = new Date(date);
@@ -71,10 +78,23 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
         return dataFormatada;
     }
 
+    function getAge(date: string) {
+        let birthDate = new Date(date)
+        var today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        return age;
+    }
+
     function handleCloseModal() {
         setModalVisible(false)
     }
-    
+
     function handleCloseModalEdit() {
         setModalEditPacVisible(false)
     }
@@ -82,6 +102,10 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
     async function handleOpenEditPac() {
         setModalEditPac(pacList);
         setModalEditPacVisible(true);
+    }
+
+    function handleTab(index: number) {
+        setBottomTabsIndex(index)
     }
 
     async function handleOpenModal(id: number) {
@@ -106,10 +130,34 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                 <main className={styles.container}>
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
-                        <button className={styles.buttonEdit} onClick={ () => handleOpenEditPac()}>
+                        <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
                             <AiFillEdit size={20} />
                         </button>
                     </div>
+                    <div className={styles.contentHeader}>
+                        <Image src="/fotoUsuario.png" alt="" width={70} height={70} />
+                        <div className={styles.contentHeaderPac}>
+                            {pacList.map(item => (
+                                <div key={item.id}>
+                                    <p>{item.nome}</p>
+                                    <p className={styles.contentHeaderPacAge}>{getAge(item.data_nascimento)} Anos</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={styles.bottomTabs} active={bottomTabsIndex}>
+                        {bottomTabs.map((tab, index) => (
+                            <button
+                                key={tab.label}
+                                type='button'
+                                onClick={() => handleTab(index)}
+                            >
+                                {tab.label}
+                            </button>
+                        ))}
+
+                    </div>
+
                     <div className={styles.containerPac}>
                         {pacList.map(item => (
                             <div key={item.id} className={styles.pacItem}>
@@ -148,39 +196,17 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                         </thead>
                         <tbody>
                             {chartList.map(item => (
-                                <tr key={item.id} onClick={ () => handleOpenModal(item.id)} className={styles.orderItem}>
-                                        <td>{(item.title).substring(0, 20)}</td>
-                                        <td>{dateConvertChart(item)}</td>
+                                <tr key={item.id} onClick={() => handleOpenModal(item.id)} className={styles.orderItem}>
+                                    <td>{(item.title).substring(0, 20)}</td>
+                                    <td>{dateConvertChart(item)}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
-
-{/*                     <table className={styles.listOrders}>
-                        <tr className={styles.listHeader}>
-                            <td>Titulo</td>
-                            <td>Descrição</td>
-                            <td>Data de Criação</td>
-                        </tr>
-
-                        {chartList.map(item => (
-                            <tr key={item.id} className={styles.orderItem}>
-                                <button className={styles.buttonItem} onClick={() => handleOpenModal(item.id)}>
-                                <hr />
-                                    <div className={styles.buttonContent}>
-                                        <td>{(item.title).substring(0, 20)}</td>
-                                        <td>{(item.description).substring(0, 20) + '...'}</td>
-                                        <td>{dateConvertChart(item)}</td>
-                                    </div>
-                                </button>
-                            </tr>
-                        ))}.
-
-                    </table> */}
                 </main>
 
-                {modalEditPacVisible &&(
-                        <ModalEditPac
+                {modalEditPacVisible && (
+                    <ModalEditPac
                         isOpen={modalEditPacVisible}
                         onRequestClose={handleCloseModalEdit}
                         pac={modalEditPac}
