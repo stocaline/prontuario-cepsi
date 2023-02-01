@@ -11,6 +11,7 @@ import { ModalEditPac } from '../../components/ModalEditPac'
 import Modal from 'react-modal';
 import { parseCookies, destroyCookie } from 'nookies'
 import Link from 'next/link'
+import { Tab } from '@headlessui/react'
 
 export type PacProps = {
     id: number,
@@ -50,16 +51,14 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
     const [pacList, setPacList] = useState(pacs || []);
     const [chartList, setChartList] = useState(charts || []);
 
+    const [pacMinor, setPacMinor] = useState(false);
+
     const [modalItem, setModalItem] = useState<ChartProps[]>()
     const [modalVisible, setModalVisible] = useState(false)
 
     const [modalEditPac, setModalEditPac] = useState(pacs || [])
     const [modalEditPacVisible, setModalEditPacVisible] = useState(false)
 
-    const [bottomTabs, setBottomTabs] = useState([
-        { state: 'main', label: 'Principal', active: true },
-        { state: 'chart', label: 'Prontuários', active: false },
-    ])
     const [bottomTabsIndex, setBottomTabsIndex] = useState(0)
 
     function dateConvertChart({ date }: ChartProps) {
@@ -104,10 +103,6 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
         setModalEditPacVisible(true);
     }
 
-    function handleTab(index: number) {
-        setBottomTabsIndex(index)
-    }
-
     async function handleOpenModal(id: number) {
 
         const apiClient = setupAPIClient();
@@ -145,64 +140,135 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                             ))}
                         </div>
                     </div>
-                    <div className={styles.bottomTabs} active={bottomTabsIndex}>
-                        {bottomTabs.map((tab, index) => (
-                            <button
-                                key={tab.label}
-                                type='button'
-                                onClick={() => handleTab(index)}
-                            >
-                                {tab.label}
-                            </button>
-                        ))}
 
-                    </div>
 
-                    <div className={styles.containerPac}>
-                        {pacList.map(item => (
-                            <div key={item.id} className={styles.pacItem}>
-                                <div className={styles.buttonContent}>
-                                    <p>Nome: {item.nome}</p>
-                                    <p>Data de nascimento: {dateConvertPac(item)}</p>
-                                    <p>Escolaridade: {item.escolaridade}</p>
-                                    <p>RG: {item.rg}</p>
-                                    <p>CPF: {item.cpf}</p>
-                                    <p>Bairro: {item.bairro}</p>
-                                    <p>Telefone: {item.telefone}</p>
-                                    <p>Profissão: {item.profissao}</p>
-                                    <p>Estado Civil: {item.estado_civil}</p>
-                                    <p>Locar de Trabalho: {item.local_trabalho}</p>
-                                    <p>Renda Familiar: {item.renda_familiar}</p>
-                                    <p>Email: {item.email}</p>
+
+                    <Tab.Group selectedIndex={bottomTabsIndex} onChange={setBottomTabsIndex}>
+                        <Tab.List className={styles.bottomTabs}>
+                            <Tab>Principal</Tab>
+                            <Tab>Prontuários</Tab>
+                        </Tab.List>
+                        <Tab.Panels>
+                            <Tab.Panel>
+                                <div className={styles.containerPac}>
+                                    {pacList.map(item => (
+                                        <div key={item.id} className={styles.pacItem}>
+                                            <h4>Identificação</h4>
+                                            <div className={styles.pacItemConteiner}>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Nome:</label>
+                                                    <input type="text" disabled value={item.nome} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Data de nascimeto:</label>
+                                                    <input type="text" disabled value={dateConvertPac(item)} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Escolaridade:</label>
+                                                    <input type="text" disabled value={item.escolaridade} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>RG:</label>
+                                                    <input type="text" disabled value={item.rg} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Estado Civil:</label>
+                                                    <input type="text" disabled value={item.estado_civil} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>CPF:</label>
+                                                    <input type="text" disabled value={item.cpf} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Renda Familiar:</label>
+                                                    <input type="text" disabled value={item.renda_familiar} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Profissão:</label>
+                                                    <input type="text" disabled value={item.profissao} />
+                                                </div>
+                                            </div>
+                                            <h4>Contatos</h4>
+                                            <div className={styles.pacItemConteiner}>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Email:</label>
+                                                    <input type="text" disabled value={item.email} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Telefone:</label>
+                                                    <input type="text" disabled value={item.telefone} />
+                                                </div>
+                                            </div>
+                                            <h4>Endereço</h4>
+                                            <div className={styles.pacItemConteiner}>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Locar de Trabalho:</label>
+                                                    <input type="text" disabled value={item.local_trabalho} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Bairro: </label>
+                                                    <input type="text" disabled value={item.bairro} />
+                                                </div>
+                                            </div>
+
+                                            {pacMinor &&
+                                                <div>
+                                                    <h4>Responsáveis</h4>
+                                                    <div className={styles.pacItemConteiner}>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>Responsável:</label>
+                                                            <input type="text" disabled value={item.nome_resp} />
+                                                        </div>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>RG responsável: </label>
+                                                            <input type="text" disabled value={item.rg_resp} />
+                                                        </div>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>Parentesco: </label>
+                                                            <input type="text" disabled value={item.parentesco} />
+                                                        </div>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>CPF responsável: </label>
+                                                            <input type="text" disabled value={item.cpf_resp} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    ))}
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                    <div className={styles.containerSubHeader}>
-                        <h1>Prontuarios</h1>
-                        <Link href={'/registerChart'}>
-                            <button className={styles.buttonAdd}>
-                                <AiOutlinePlus size={20} />
-                            </button>
-                        </Link>
-                    </div>
+                            </Tab.Panel>
+                            <Tab.Panel>
 
-                    <table className={styles.listOrders}>
-                        <thead >
-                            <tr className={styles.listHeader}>
-                                <th>Titulo</th>
-                                <th>Data de Criação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {chartList.map(item => (
-                                <tr key={item.id} onClick={() => handleOpenModal(item.id)} className={styles.orderItem}>
-                                    <td>{(item.title).substring(0, 20)}</td>
-                                    <td>{dateConvertChart(item)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                <div className={styles.containerSubHeader}>
+                                    <h1>Prontuarios</h1>
+                                    <Link href={'/registerChart'}>
+                                        <button className={styles.buttonAdd}>
+                                            <AiOutlinePlus size={20} />
+                                        </button>
+                                    </Link>
+                                </div>
+
+                                <table className={styles.listOrders}>
+                                    <thead >
+                                        <tr className={styles.listHeader}>
+                                            <th>Titulo</th>
+                                            <th>Data de Criação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {chartList.map(item => (
+                                            <tr key={item.id} onClick={() => handleOpenModal(item.id)} className={styles.orderItem}>
+                                                <td>{(item.title).substring(0, 20)}</td>
+                                                <td>{dateConvertChart(item)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </Tab.Panel>
+                        </Tab.Panels>
+                    </Tab.Group>
+
                 </main>
 
                 {modalEditPacVisible && (

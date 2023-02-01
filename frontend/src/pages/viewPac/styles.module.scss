@@ -1,4 +1,4 @@
-.container{
+.container {
     max-width: 980px;
     margin: 4rem auto;
     padding: 0 2rem;
@@ -7,18 +7,18 @@
     box-shadow: 0px 4px 4px 4px rgba(0, 0, 0, 0.25);
     padding-top: 1rem;
 
-    span{
+    span {
         margin: 10px;
     }
 }
 
-.containerHeader{
+.containerHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
 
-    .buttonEdit{
+    .buttonEdit {
         padding: 10px;
         color: var(--white);
         font-weight: bold;
@@ -29,30 +29,30 @@
     }
 }
 
-.contentHeader{
+.contentHeader {
     display: flex;
     color: #303030;
     font-weight: 700;
     font-size: 1.5rem;
 }
 
-.contentHeaderPacAge{
+.contentHeaderPacAge {
     font-size: 1rem;
     color: #303030b7;
 }
 
-.contentHeaderPac{
+.contentHeaderPac {
     margin-top: 0.6rem;
     margin-left: 0.6rem;
 }
 
 
-.bottomTabs{
-    margin:  15px 0 0 0;
+.bottomTabs {
+    margin: 15px 0 0 0;
     border-bottom: 2px solid #e2e2e2;
     padding: 0;
-    
-    button{
+
+    button {
         position: relative;
         margin: 0 3px;
         padding: 8px;
@@ -64,11 +64,12 @@
         color: #474747;
     }
 
-    button:hover, button.active{
+    button:hover,
+    button.active {
         color: rgb(52, 124, 231);
     }
 
-    button::after{
+    button::after {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -77,23 +78,71 @@
         height: 2px;
         width: 0%;
         background-color: rgb(52, 124, 231);
-        transition: 1s;
+        transition: 0.4s;
     }
 
     button:hover::after,
-        button.active::after {
-            width: 100%;
-        }
+    button.active::after {
+        width: 100%;
+    }
 }
 
 
-.containerSubHeader{
+.pacItem {
+
+
+    h4 {
+        width: 105%;
+        margin-left: -2%;
+        padding-left: 1rem;
+        color: #504f4f;
+        font-size: 1rem;
+        font-weight: 700;
+        background-color: #e0e0e0;
+    }
+
+    .pacItemConteiner {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+
+
+
+        .pacItemContent{
+            display: flex;
+            flex-direction: row;
+            justify-content: right;
+            margin-right: 15%;
+
+            label{
+                color: #5c5b5be8;
+                margin-top: 0.5rem;
+                margin-right: 1rem;
+                font-weight: 600;
+                font-size: 0.9rem;
+            }
+
+            input{
+                padding: 0.4rem;
+                background-color: transparent;
+                border: 1px  rgb(231, 231, 231) solid;
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+
+.containerSubHeader {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
 
-    .buttonAdd{
+    .buttonAdd {
         padding: 10px;
         color: var(--white);
         font-weight: bold;
@@ -104,7 +153,7 @@
     }
 }
 
-.containerPac{
+.containerPac {
     height: auto;
     margin-top: 0.5rem;
     padding: 1rem;
