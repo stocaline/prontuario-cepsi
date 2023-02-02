@@ -113,6 +113,22 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
     }
 
+    function seletedTab1(){
+        if(bottomTabsIndex === 0){
+            return styles.bottomTabsSelect
+        }else{
+            return 
+        }
+
+    }
+    function seletedTab2(){
+        if(bottomTabsIndex === 1){
+            return styles.bottomTabsSelect
+        }else{
+            return
+        }
+    }
+
     Modal.setAppElement('#__next');
 
     return (
@@ -145,8 +161,8 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
                     <Tab.Group selectedIndex={bottomTabsIndex} onChange={setBottomTabsIndex}>
                         <Tab.List className={styles.bottomTabs}>
-                            <Tab>Principal</Tab>
-                            <Tab>Prontuários</Tab>
+                            <Tab className={seletedTab1()}>Principal</Tab>
+                            <Tab className={seletedTab2()}>Prontuários</Tab>
                         </Tab.List>
                         <Tab.Panels>
                             <Tab.Panel>
