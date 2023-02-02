@@ -51,7 +51,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
     const [pacList, setPacList] = useState(pacs || []);
     const [chartList, setChartList] = useState(charts || []);
 
-    const [pacMinor, setPacMinor] = useState(false);
+    const [pacMinor, setPacMinor] = useState(verifyIfMinor(pacList.map(item => item.menor_idade)));
 
     const [modalItem, setModalItem] = useState<ChartProps[]>()
     const [modalVisible, setModalVisible] = useState(false)
@@ -60,6 +60,15 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
     const [modalEditPacVisible, setModalEditPacVisible] = useState(false)
 
     const [bottomTabsIndex, setBottomTabsIndex] = useState(0)
+
+    function verifyIfMinor( minor: any ){
+        console.log(minor)
+        if(minor == 0 ){
+            return false
+        }else{
+            return true
+        }
+    }
 
     function dateConvertChart({ date }: ChartProps) {
         var data = new Date(date);
@@ -87,6 +96,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
             age--;
         }
+        
         return age;
     }
 
@@ -227,7 +237,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                                                 </div>
                                             </div>
 
-                                            {pacMinor &&
+                                            {pacMinor  &&
                                                 <div>
                                                     <h4>Responsáveis</h4>
                                                     <div className={styles.pacItemConteiner}>
@@ -249,7 +259,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                            }
+                                                }
                                         </div>
                                     ))}
                                 </div>
@@ -257,7 +267,7 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                             <Tab.Panel>
 
                                 <div className={styles.containerSubHeader}>
-                                    <h1>Prontuarios</h1>
+                                    <h1>Prontuários</h1>
                                     <Link href={'/registerChart'}>
                                         <button className={styles.buttonAdd}>
                                             <AiOutlinePlus size={20} />
