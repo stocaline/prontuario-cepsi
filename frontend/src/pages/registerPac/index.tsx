@@ -34,8 +34,8 @@ export default function RegisterPac({ id }: IdOwner) {
     const [minor, setMinor] = useState(false);
     const [accountable, setAccountable] = useState('');
     const [kindship, setKindship] = useState('');
-    const [rgAccountable, setRgAccountable] = useState('');
-    const [cpfAccountable, setCpfAccountable] = useState('');
+    const [rgAccountable, setRgAccountable] = useState(0);
+    const [cpfAccountable, setCpfAccountable] = useState(0);
 
     const [idOwner, seIdOwner] = useState(id);
 
@@ -342,8 +342,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                         type="number"
                                         placeholder=' '
                                         className={styles.input}
-                                        value={rgAccountable}
-                                        onChange={(e) => setRgAccountable(e.target.value)}
+                                        onChange={(e) => setRgAccountable(e.target.valueAsNumber)}
                                     />
                                     <label className={styles.placeholder}>
                                         RG do responsável:
@@ -354,8 +353,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                         type="number"
                                         placeholder=' '
                                         className={styles.input}
-                                        value={cpfAccountable}
-                                        onChange={(e) => setCpfAccountable(e.target.value)}
+                                        onChange={(e) => setCpfAccountable(e.target.valueAsNumber)}
                                     />
                                     <label className={styles.placeholder}>
                                         CPF do Resposável:
