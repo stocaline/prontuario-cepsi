@@ -1,15 +1,17 @@
-import Head from 'next/head';
+import Head from 'next/head'
 import { Header } from '../../components/Header'
-import { canSSRAuth } from '../../utils/canSSRAuth';
+import { canSSRAuth } from '../../utils/canSSRAuth'
 import styles from './styles.module.scss'
 import { AiFillEdit, AiOutlinePlus } from 'react-icons/ai'
+import Image from 'next/image'
 import { setupAPIClient } from '../../services/api'
 import { useState } from 'react'
 import { ModalChart } from '../../components/ModalChart'
 import { ModalEditPac } from '../../components/ModalEditPac'
 import Modal from 'react-modal';
-import { parseCookies, destroyCookie } from 'nookies';
-import Link from 'next/link';
+import { parseCookies, destroyCookie } from 'nookies'
+import Link from 'next/link'
+import { Tab } from '@headlessui/react'
 
 export type PacProps = {
     id: number,
@@ -49,11 +51,24 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
     const [pacList, setPacList] = useState(pacs || []);
     const [chartList, setChartList] = useState(charts || []);
 
+    const [pacMinor, setPacMinor] = useState(verifyIfMinor(pacList.map(item => item.menor_idade)));
+
     const [modalItem, setModalItem] = useState<ChartProps[]>()
     const [modalVisible, setModalVisible] = useState(false)
-    
+
     const [modalEditPac, setModalEditPac] = useState(pacs || [])
     const [modalEditPacVisible, setModalEditPacVisible] = useState(false)
+
+    const [bottomTabsIndex, setBottomTabsIndex] = useState(0)
+
+    function verifyIfMinor( minor: any ){
+        console.log(minor)
+        if(minor == 0 ){
+            return false
+        }else{
+            return true
+        }
+    }
 
     function dateConvertChart({ date }: ChartProps) {
         var data = new Date(date);
@@ -71,10 +86,24 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
         return dataFormatada;
     }
 
+    function getAge(date: string) {
+        let birthDate = new Date(date)
+        var today = new Date();
+
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        
+        return age;
+    }
+
     function handleCloseModal() {
         setModalVisible(false)
     }
-    
+
     function handleCloseModalEdit() {
         setModalEditPacVisible(false)
     }
@@ -94,6 +123,22 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
 
     }
 
+    function seletedTab1(){
+        if(bottomTabsIndex === 0){
+            return styles.bottomTabsSelect
+        }else{
+            return 
+        }
+
+    }
+    function seletedTab2(){
+        if(bottomTabsIndex === 1){
+            return styles.bottomTabsSelect
+        }else{
+            return
+        }
+    }
+
     Modal.setAppElement('#__next');
 
     return (
@@ -106,81 +151,154 @@ export default function ViewPac({ pacs, charts }: HomeProps) {
                 <main className={styles.container}>
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
-                        <button className={styles.buttonEdit} onClick={ () => handleOpenEditPac()}>
+                        <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
                             <AiFillEdit size={20} />
                         </button>
                     </div>
-                    <div className={styles.containerPac}>
-                        {pacList.map(item => (
-                            <div key={item.id} className={styles.pacItem}>
-                                <div className={styles.buttonContent}>
-                                    <p>Nome: {item.nome}</p>
-                                    <p>Data de nascimento: {dateConvertPac(item)}</p>
-                                    <p>Escolaridade: {item.escolaridade}</p>
-                                    <p>RG: {item.rg}</p>
-                                    <p>CPF: {item.cpf}</p>
-                                    <p>Bairro: {item.bairro}</p>
-                                    <p>Telefone: {item.telefone}</p>
-                                    <p>Profissão: {item.profissao}</p>
-                                    <p>Estado Civil: {item.estado_civil}</p>
-                                    <p>Locar de Trabalho: {item.local_trabalho}</p>
-                                    <p>Renda Familiar: {item.renda_familiar}</p>
-                                    <p>Email: {item.email}</p>
+                    <div className={styles.contentHeader}>
+                        <Image src="/fotoUsuario.png" alt="" width={70} height={70} />
+                        <div className={styles.contentHeaderPac}>
+                            {pacList.map(item => (
+                                <div key={item.id}>
+                                    <p>{item.nome}</p>
+                                    <p className={styles.contentHeaderPacAge}>{getAge(item.data_nascimento)} Anos</p>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                    <div className={styles.containerSubHeader}>
-                        <h1>Prontuarios</h1>
-                        <Link href={'/registerChart'}>
-                            <button className={styles.buttonAdd}>
-                                <AiOutlinePlus size={20} />
-                            </button>
-                        </Link>
-                    </div>
-
-                    <table className={styles.listOrders}>
-                        <thead >
-                            <tr className={styles.listHeader}>
-                                <th>Titulo</th>
-                                <th>Data de Criação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {chartList.map(item => (
-                                <tr key={item.id} onClick={ () => handleOpenModal(item.id)} className={styles.orderItem}>
-                                        <td>{(item.title).substring(0, 20)}</td>
-                                        <td>{dateConvertChart(item)}</td>
-                                </tr>
                             ))}
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
 
-{/*                     <table className={styles.listOrders}>
-                        <tr className={styles.listHeader}>
-                            <td>Titulo</td>
-                            <td>Descrição</td>
-                            <td>Data de Criação</td>
-                        </tr>
 
-                        {chartList.map(item => (
-                            <tr key={item.id} className={styles.orderItem}>
-                                <button className={styles.buttonItem} onClick={() => handleOpenModal(item.id)}>
-                                <hr />
-                                    <div className={styles.buttonContent}>
-                                        <td>{(item.title).substring(0, 20)}</td>
-                                        <td>{(item.description).substring(0, 20) + '...'}</td>
-                                        <td>{dateConvertChart(item)}</td>
-                                    </div>
-                                </button>
-                            </tr>
-                        ))}.
 
-                    </table> */}
+                    <Tab.Group selectedIndex={bottomTabsIndex} onChange={setBottomTabsIndex}>
+                        <Tab.List className={styles.bottomTabs}>
+                            <Tab className={seletedTab1()}>Principal</Tab>
+                            <Tab className={seletedTab2()}>Prontuários</Tab>
+                        </Tab.List>
+                        <Tab.Panels>
+                            <Tab.Panel>
+                                <div className={styles.containerPac}>
+                                    {pacList.map(item => (
+                                        <div key={item.id} className={styles.pacItem}>
+                                            <h4>Identificação</h4>
+                                            <div className={styles.pacItemConteiner}>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Nome:</label>
+                                                    <input type="text" disabled value={item.nome} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Data de nascimeto:</label>
+                                                    <input type="text" disabled value={dateConvertPac(item)} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Escolaridade:</label>
+                                                    <input type="text" disabled value={item.escolaridade} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>RG:</label>
+                                                    <input type="text" disabled value={item.rg} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Estado Civil:</label>
+                                                    <input type="text" disabled value={item.estado_civil} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>CPF:</label>
+                                                    <input type="text" disabled value={item.cpf} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Renda Familiar:</label>
+                                                    <input type="text" disabled value={item.renda_familiar} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Profissão:</label>
+                                                    <input type="text" disabled value={item.profissao} />
+                                                </div>
+                                            </div>
+                                            <h4>Contatos</h4>
+                                            <div className={styles.pacItemConteiner}>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Email:</label>
+                                                    <input type="text" disabled value={item.email} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Telefone:</label>
+                                                    <input type="text" disabled value={item.telefone} />
+                                                </div>
+                                            </div>
+                                            <h4>Endereço</h4>
+                                            <div className={styles.pacItemConteiner}>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Locar de Trabalho:</label>
+                                                    <input type="text" disabled value={item.local_trabalho} />
+                                                </div>
+                                                <div className={styles.pacItemContent}>
+                                                    <label>Bairro: </label>
+                                                    <input type="text" disabled value={item.bairro} />
+                                                </div>
+                                            </div>
+
+                                            {pacMinor  &&
+                                                <div>
+                                                    <h4>Responsáveis</h4>
+                                                    <div className={styles.pacItemConteiner}>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>Responsável:</label>
+                                                            <input type="text" disabled value={item.nome_resp} />
+                                                        </div>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>RG responsável: </label>
+                                                            <input type="text" disabled value={item.rg_resp} />
+                                                        </div>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>Parentesco: </label>
+                                                            <input type="text" disabled value={item.parentesco} />
+                                                        </div>
+                                                        <div className={styles.pacItemContent}>
+                                                            <label>CPF responsável: </label>
+                                                            <input type="text" disabled value={item.cpf_resp} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                }
+                                        </div>
+                                    ))}
+                                </div>
+                            </Tab.Panel>
+                            <Tab.Panel>
+
+                                <div className={styles.containerSubHeader}>
+                                    <h1>Prontuários</h1>
+                                    <Link href={'/registerChart'}>
+                                        <button className={styles.buttonAdd}>
+                                            <AiOutlinePlus size={20} />
+                                        </button>
+                                    </Link>
+                                </div>
+
+                                <table className={styles.listOrders}>
+                                    <thead >
+                                        <tr className={styles.listHeader}>
+                                            <th>Titulo</th>
+                                            <th>Data de Criação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {chartList.map(item => (
+                                            <tr key={item.id} onClick={() => handleOpenModal(item.id)} className={styles.orderItem}>
+                                                <td>{(item.title).substring(0, 20)}</td>
+                                                <td>{dateConvertChart(item)}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </Tab.Panel>
+                        </Tab.Panels>
+                    </Tab.Group>
+
                 </main>
 
-                {modalEditPacVisible &&(
-                        <ModalEditPac
+                {modalEditPacVisible && (
+                    <ModalEditPac
                         isOpen={modalEditPacVisible}
                         onRequestClose={handleCloseModalEdit}
                         pac={modalEditPac}
