@@ -56,6 +56,6 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + permitir editar prontuarios.
 
 #### Lista de correções - 08/02/2023:
-01 Refatorar o backend, com typescript e adicionar o prisma para gestão e construção automática do banco de dados
-02 Refatorar o Frontend, fazer as adaptações nescessarias para receber as informações novas do novo backend 
-03 Refazer o header da aplicação, com novo designe e novas funções
+- 1 Refatorar o backend, com typescript e adicionar o prisma para gestão e construção automática do banco de dados
+- 2 Refatorar o Frontend, fazer as adaptações nescessarias para receber as informações novas do novo backend 
+- 3 Refazer o header da aplicação, com novo designe e novas funções
