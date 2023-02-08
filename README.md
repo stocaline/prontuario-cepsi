@@ -54,3 +54,8 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + imprimir ficha dos prontuarios e paciente separadas
 + organizar layout de apresentacao das listas de pacientes e dos prontuarios☑️
 + permitir editar prontuarios.
+
+#### Lista de correções - 08/02/2023:
+01 Refatorar o backend, com typescript e adicionar o prisma para gestão e construção automática do banco de dados
+02 Refatorar o Frontend, fazer as adaptações nescessarias para receber as informações novas do novo backend 
+03 Refazer o header da aplicação, com novo designe e novas funções
