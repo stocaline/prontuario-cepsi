@@ -1,6 +1,8 @@
 # prontuario-cepsi
 
->Status: em produção
+<h4 align="center"> 
+	🚧  🚀 Em construção...  🚧
+</h4>
 
 ## Descrição📘:
 Prontuario eletrônico para a CEPSI desenvolvido para tornar o processo de cadastro de paciente mais eficente e pratico, usando tecnologias como Node.js, React.js, Next.js e Typescript.
