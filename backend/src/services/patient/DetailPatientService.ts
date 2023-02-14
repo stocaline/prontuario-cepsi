@@ -26,6 +26,7 @@ class DetailPatientService{
                 Owner_id: true,
                 address:true,
                 cepsi_insert: true,
+                charts: true
             }
         })
 
