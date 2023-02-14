@@ -9,6 +9,8 @@ import { DetailPatientController } from './controllers/patient/DetailPatientCont
 import { UpdatePatientController } from './controllers/patient/UpdatePatientController';
 import { CreateChartController } from './controllers/patient/chart/CreateChartController';
 import { DetailChartController } from './controllers/patient/chart/DetailChartController';
+import { CreateInsertController } from './controllers/patient/insertion/CreateInsertController';
+import { DetailInsertController } from './controllers/patient/insertion/DetailInsertController';
 import { isAuthenticated } from './middlewares/isAuthenticated'
 
 const router = Router()
@@ -36,6 +38,9 @@ router.post('/patient/chart/:id', isAuthenticated, new CreateChartController().h
 
 router.get('/patient/chart/:id', isAuthenticated, new DetailChartController().handle)
 
+//--Cepsi Insert--
+router.post('/patient/insertion/:id', isAuthenticated, new CreateInsertController().handle)
 
+router.get('/patient/insertion/:id', isAuthenticated, new DetailInsertController().handle)
 
 export { router }
