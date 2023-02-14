@@ -7,6 +7,7 @@ import { GetPatientOfUserController } from './controllers/user/GetPatientOfUserC
 import { CreatePatientController } from './controllers/patient/CreatePatientController';
 import { DetailPatientController } from './controllers/patient/DetailPatientController';
 import { UpdatePatientController } from './controllers/patient/UpdatePatientController';
+import { CreateChartController } from './controllers/patient/chart/CreateChartController';
 import { isAuthenticated } from './middlewares/isAuthenticated'
 
 const router = Router()
@@ -28,5 +29,9 @@ router.post('/patient', isAuthenticated, new CreatePatientController().handle)
 router.get('/patient/info/:id', isAuthenticated, new DetailPatientController().handle)
 
 router.put('/patient/:id', isAuthenticated, new UpdatePatientController().handle)
+
+//--Chart--
+
+router.post('/patient/chart/:id', isAuthenticated, new CreateChartController().handle)
 
 export { router }
