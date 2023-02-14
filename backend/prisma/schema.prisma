@@ -56,8 +56,10 @@ model Patient {
   address      Address?
   cepsi_insert Cepsi_insertion?
   charts       Chart[]
-  user         User             @relation(fields: [Owner_id], references: [id])
-  Owner_id     String
+  schedule     Schedule[]
+
+  user     User   @relation(fields: [Owner_id], references: [id])
+  Owner_id String
 
   @@map("patients")
 }
@@ -127,4 +129,17 @@ model Chart {
   patientId String?
 
   @@map("charts")
+}
+
+model Schedule {
+  id   String   @id @default(uuid())
+  date DateTime
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId String?
+
+  @@map("schedules")
 }

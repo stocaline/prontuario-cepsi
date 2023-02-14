@@ -15,6 +15,15 @@ interface InsertRequest{
 class CreateInsertService{
     async execute({patient_id, type, forwarding_agency, forwarding_professional, phone, reason, looked_for_another_service, name_another_service, lenght_of_stay_in_mouths}: InsertRequest){
 
+        const insertAlreadyExists = await prismaClient.cepsi_insertion.findFirst({
+            where:{
+                patientId: patient_id
+            }
+        })
+
+        if(insertAlreadyExists){
+            throw new Error("Patient already have a cepsi insertion")
+        }
 
         const insert = await prismaClient.cepsi_insertion.create({
             data:{
