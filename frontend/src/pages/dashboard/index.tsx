@@ -7,34 +7,20 @@ import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
 import Router from 'next/router';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
+import { json } from 'stream/consumers';
 
 type PatientsProps = {
     id: string,
-    nome: string,
-    data_nascimento: string,
-    escolaridade: string,
-    rg: number,
-    cpf: number,
-    bairro: string,
-    telefone: number,
-    profissao: string,
-    estado_civil: string,
-    local_trabalho: string,
-    email: string,
-    menor_idade: boolean,
-    nome_resp: string,
-    parentesco: string,
-    rg_resp: number,
-    cpf_resp: number,
-    ultima_visita: string
+    name: string,
+    last_visit: string,
 }
 
 interface HomeProps {
     patients: PatientsProps[];
 }
 
-function dateConvert({ ultima_visita }: PatientsProps) {
-    var data = new Date(ultima_visita);
+function dateConvert({ last_visit }: PatientsProps) {
+    var data = new Date(last_visit);
     var dataFormatada = data.toLocaleDateString('pt-BR', {
         timeZone: 'UTC'
     });
@@ -47,7 +33,6 @@ export function handleOpenViewPac(id: string) {
 }
 
 export default function Dashboard({ patients }: HomeProps) {
-
     const [patientList, setPatientList] = useState(patients || []);
 
     return (
@@ -76,12 +61,12 @@ export default function Dashboard({ patients }: HomeProps) {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* {patientList.map(item => (
+                            {patientList.map(item => (
                                 <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
-                                        <td>{item.nome}</td>
+                                        <td>{item.name}</td>
                                         <td>{dateConvert(item)}</td>
                                 </tr>
-                            ))} */}
+                            ))}
                         </tbody>
                     </table>
                 </main>
@@ -91,9 +76,6 @@ export default function Dashboard({ patients }: HomeProps) {
 }
 
 export const getServerSideProps = canSSRAuth(async (ctx: any) => {
-
-    const cookies = parseCookies(ctx);
-    const id = cookies['@nextuser.id'];
 
     const apiClient = setupAPIClient(ctx);
     const response = await apiClient.get(`/user/patient`);
