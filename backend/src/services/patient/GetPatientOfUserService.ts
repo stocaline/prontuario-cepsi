@@ -2,15 +2,13 @@ import prismaClient from "../../prisma";
 
 class GetPatientOfUserService{
     async execute(user_id: string){
-        const user = await prismaClient.user.findFirst({
+        const patients = await prismaClient.patient.findMany({
             where:{
-                id: user_id
-            }, select:{
-                patients: true
+                Owner_id: user_id
             }
         })
 
-        return user
+        return patients
     }
 }
 

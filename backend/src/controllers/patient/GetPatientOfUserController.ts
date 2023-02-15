@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { GetPatientOfUserService } from '../../services/user/GetPatientOfUserService';
+import { GetPatientOfUserService } from '../../services/patient/GetPatientOfUserService';
 
 class GetPatientOfUserController{
     async handle(req: Request, res: Response){
