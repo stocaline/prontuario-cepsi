@@ -8,7 +8,7 @@ import { setupAPIClient } from '../../services/api'
 import Router from 'next/router';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
 
-type PacProps = {
+type PatientsProps = {
     id: string,
     nome: string,
     data_nascimento: string,
@@ -30,10 +30,10 @@ type PacProps = {
 }
 
 interface HomeProps {
-    pacs: PacProps[];
+    patients: PatientsProps[];
 }
 
-function dateConvert({ ultima_visita }: PacProps) {
+function dateConvert({ ultima_visita }: PatientsProps) {
     var data = new Date(ultima_visita);
     var dataFormatada = data.toLocaleDateString('pt-BR', {
         timeZone: 'UTC'
@@ -46,9 +46,9 @@ export function handleOpenViewPac(id: string) {
     Router.push('/viewPac');
 }
 
-export default function Dashboard({ pacs }: HomeProps) {
+export default function Dashboard({ patients }: HomeProps) {
 
-    const [pacList, setPacList] = useState(pacs || []);
+    const [patientList, setPatientList] = useState(patients || []);
 
     return (
         <>
@@ -76,12 +76,12 @@ export default function Dashboard({ pacs }: HomeProps) {
                             </tr>
                         </thead>
                         <tbody>
-                            {pacList.map(item => (
+                            {/* {patientList.map(item => (
                                 <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
                                         <td>{item.nome}</td>
                                         <td>{dateConvert(item)}</td>
                                 </tr>
-                            ))}
+                            ))} */}
                         </tbody>
                     </table>
                 </main>
@@ -96,11 +96,11 @@ export const getServerSideProps = canSSRAuth(async (ctx: any) => {
     const id = cookies['@nextuser.id'];
 
     const apiClient = setupAPIClient(ctx);
-    const response = await apiClient.get(`/user/pacs/${id}`);
+    const response = await apiClient.get(`/user/patient`);
 
     return {
         props: {
-            pacs: response.data
+            patients: response.data
         }
     }
 })
