@@ -1,28 +1,45 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import styles from './styles.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import { canSSRAuth } from '../../utils/canSSRAuth';
-
 import { FiLogOut } from 'react-icons/fi';
-
 import { AuthContext } from '../../contexts/AuthContext'
 
 export function Header() {
 
-    const { signOut, user } = useContext(AuthContext);
+    const { signOut, user } = useContext(AuthContext)
+
+    const [active, setActive] = useState(false)
+
+    const toggleMenu = () => {
+        setActive(!active)
+    }
 
     return (
         <>
             <header className={styles.headerContainer}>
                 <div className={styles.headerContent}>
-                    <Link href="/dashboard">
-                        <Image src="/logoCesusc.png" alt='' width={130} height={130} />
-                    </Link>
-                    <div className={styles.userContent}>
-                        <Image src="/fotoUsuario.png" alt="" width={70} height={70} />
-                        <h1>{user?.name}</h1>
+                        <label htmlFor="burger" className={styles.burger} >
+                            <input id="burger" type="checkbox" onClick={toggleMenu}/>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </label>
+
+                    <div className={styles.slideMenu}>
+                        <div className={active ? styles.menuOpen : styles.menuClose}>
+                            <div className={styles.list}>
+                                <ul className={styles.listItens}>
+                                    <li>Dashboard</li>
+                                    <li>Pacientes</li>
+                                    <li>Documentos</li>
+                                    <li>Agenda</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+
                     <nav className={styles.menuNav}>
                         <button onClick={signOut}>
                             <FiLogOut color="#FFF" size={24} />
