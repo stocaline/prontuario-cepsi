@@ -11,6 +11,7 @@ class DetailUserService{
                 email: true,
                 admin: true,
                 registration: true,
+                patients: true,
             }
         })
 
