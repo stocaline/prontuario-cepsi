@@ -20,19 +20,27 @@ export function Header() {
         <>
             <header className={styles.headerContainer}>
                 <div className={styles.headerContent}>
-                        <label htmlFor="burger" className={styles.burger} >
-                            <input id="burger" type="checkbox" onClick={toggleMenu}/>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </label>
+                    <label htmlFor="burger" className={styles.burger} >
+                        <input id="burger" type="checkbox" onClick={toggleMenu} />
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
 
                     <div className={styles.slideMenu}>
                         <div className={active ? styles.menuOpen : styles.menuClose}>
                             <div className={styles.list}>
                                 <ul className={styles.listItens}>
-                                    <li>Dashboard</li>
-                                    <li>Pacientes</li>
+                                    <Link href="/dashboard">
+                                        <li>
+                                            Dashboard
+                                        </li>
+                                    </Link>
+                                    <Link href="/patients">
+                                        <li>
+                                            Pacientes
+                                        </li>
+                                    </Link>
                                     <li>Documentos</li>
                                     <li>Agenda</li>
                                 </ul>

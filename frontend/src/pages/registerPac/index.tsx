@@ -21,21 +21,21 @@ export default function RegisterPac({ id }: IdOwner) {
     const [name, setName] = useState('');
     const [date, setDate] = useState('');
     const [schooling, setSchooling] = useState('Ensino Fundamental Incompleto');
-    const [rg, setRg] = useState(0);
-    const [cpf, setCpf] = useState(0);
+    const [rg, setRg] = useState('');
+    const [cpf, setCpf] = useState('');
     const [district, setDistrict] = useState('');
     const [phone, setPhone] = useState('');
     const [career, setCareer] = useState('');
     const [status, setStatus] = useState('Solteiro');
     const [workplace, setWorkplace] = useState('');
-    const [familyIncome, setFamilyIncome] = useState(0);
+    const [familyIncome, setFamilyIncome] = useState('');
     const [email, setEmail] = useState('');
 
     const [minor, setMinor] = useState(false);
     const [accountable, setAccountable] = useState('');
     const [kindship, setKindship] = useState('');
-    const [rgAccountable, setRgAccountable] = useState(0);
-    const [cpfAccountable, setCpfAccountable] = useState(0);
+    const [rgAccountable, setRgAccountable] = useState('');
+    const [cpfAccountable, setCpfAccountable] = useState('');
 
     const [idOwner, seIdOwner] = useState(id);
 
@@ -97,7 +97,7 @@ export default function RegisterPac({ id }: IdOwner) {
             }
 
             const apiClient = setupAPIClient();
-            await apiClient.post("/pac/register", {
+            await apiClient.post("/patient", {
                 nome: name,
                 dataNascimento: date,
                 escolaridade: schooling,
@@ -140,7 +140,7 @@ export default function RegisterPac({ id }: IdOwner) {
                 <main className={styles.container}>
                     <div className={styles.containerHeader}>
                         <h1>Novo paciente</h1>
-                        <Link href={'/dashboard'}>
+                        <Link href={'/patients'}>
                             <button>
                                 <FiChevronsLeft size={30} />
                             </button>
@@ -197,7 +197,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                onChange={(e) => setRg(e.target.valueAsNumber)}
+                                onChange={(e) => setRg(e.target.value)}
 
                             />
                             <label className={styles.placeholder}>
@@ -209,7 +209,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                onChange={(e) => setCpf(e.target.valueAsNumber)}
+                                onChange={(e) => setCpf(e.target.value)}
                             />
                             <label className={styles.placeholder}>
                                 CPF:
@@ -288,7 +288,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                onChange={(e) => setFamilyIncome(e.target.valueAsNumber)}
+                                onChange={(e) => setFamilyIncome(e.target.value)}
                             />
                             <label className={styles.placeholder}>
                                 Renda Familiar:
@@ -342,7 +342,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                         type="number"
                                         placeholder=' '
                                         className={styles.input}
-                                        onChange={(e) => setRgAccountable(e.target.valueAsNumber)}
+                                        onChange={(e) => setRgAccountable(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
                                         RG do responsável:
@@ -353,7 +353,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                         type="number"
                                         placeholder=' '
                                         className={styles.input}
-                                        onChange={(e) => setCpfAccountable(e.target.valueAsNumber)}
+                                        onChange={(e) => setCpfAccountable(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
                                         CPF do Resposável:

@@ -9,31 +9,23 @@ import Router from 'next/router';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
 import { json } from 'stream/consumers';
 
-type PatientsProps = {
-    id: string,
-    name: string,
-    last_visit: string,
+import { FiUser } from 'react-icons/fi'
+
+type UserProps = {
+    id: string
+    name: string
+    email: string
+    registration: string
+    patients: []
 }
 
-interface HomeProps {
-    patients: PatientsProps[];
+interface data{
+    user: UserProps
 }
 
-function dateConvert({ last_visit }: PatientsProps) {
-    var data = new Date(last_visit);
-    var dataFormatada = data.toLocaleDateString('pt-BR', {
-        timeZone: 'UTC'
-    });
-    return dataFormatada;
-}
+export default function Dashboard(data: data) {
 
-export function handleOpenViewPac(id: string) {
-    setCookie(undefined, '@nextpac.id', id);
-    Router.push('/viewPac');
-}
-
-export default function Dashboard({ patients }: HomeProps) {
-    const [patientList, setPatientList] = useState(patients || []);
+    const [userInfo, setUserInfo] = useState(data.user || "")
 
     return (
         <>
@@ -44,31 +36,30 @@ export default function Dashboard({ patients }: HomeProps) {
                 <Header />
 
                 <main className={styles.container}>
-                    <div className={styles.containerHeader}>
-                        <h1>Pacientes</h1>
-                        <Link href='/registerPac'>
-                            <button className={styles.buttonAdd}>
-                                Adicionar
-                            </button>
+                    <h1>Dashboard</h1>
+                    <div className={styles.content}>
+                        <div className={styles.card}>
+                            <div className={styles.userConteiner}>
+                                <div className={styles.circleUser}>
+                                    <FiUser size={50} />
+                                </div>
+                                <div className={styles.userInfo}>
+                                    <h3>{userInfo.name}</h3>
+                                    <p><strong>Matricula:</strong> {userInfo.registration}</p>
+                                    <p><strong>email:</strong> {userInfo.email}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <Link href={'/patients'}>
+                            <div className={styles.card}>
+                                <h2>Pacientes</h2>
+                                <p></p>
+                            </div>
                         </Link>
+                        <div className={styles.card}>
+                            <h2>Agenda</h2>
+                        </div>
                     </div>
-
-                    <table className={styles.listOrders}>
-                        <thead >
-                            <tr className={styles.listHeader}>
-                                <th>Nome do Paciente</th>
-                                <th>Ultima Visita</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {patientList.map(item => (
-                                <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
-                                        <td>{item.name}</td>
-                                        <td>{dateConvert(item)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
                 </main>
             </div>
         </>
@@ -78,11 +69,11 @@ export default function Dashboard({ patients }: HomeProps) {
 export const getServerSideProps = canSSRAuth(async (ctx: any) => {
 
     const apiClient = setupAPIClient(ctx);
-    const response = await apiClient.get(`/user/patient`);
+    const response = await apiClient.get(`/user/info`);
 
     return {
         props: {
-            patients: response.data
+            user: response.data
         }
     }
 })
