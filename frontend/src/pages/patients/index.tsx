@@ -29,7 +29,7 @@ function dateConvert({ last_visit }: PatientsProps) {
 
 export function handleOpenViewPac(id: string) {
     setCookie(undefined, '@nextpac.id', id);
-    Router.push('/viewPac');
+    Router.push('/viewPat');
 }
 
 export default function Patients({ patients }: HomeProps) {
@@ -46,7 +46,7 @@ export default function Patients({ patients }: HomeProps) {
                 <main className={styles.container}>
                     <div className={styles.containerHeader}>
                         <h1>Pacientes</h1>
-                        <Link href='/registerPac'>
+                        <Link href='/registerPat'>
                             <button className={styles.buttonAdd}>
                                 Adicionar
                             </button>

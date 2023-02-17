@@ -15,7 +15,7 @@ import dayjs from 'dayjs';
 var utc = require('dayjs/plugin/utc')
 dayjs.extend(utc)
 
-export default function RegisterPac() {
+export default function RegisterPat() {
 
     const [name, setName] = useState('');
     const [socialName, setSocialName] = useState(false);

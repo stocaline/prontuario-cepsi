@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import { useState, FormEvent } from 'react'
 import { FiX } from 'react-icons/fi';
 
-import { PacProps } from '../../pages/viewPac'
+import { PacProps } from '../../pages/viewPat'
 
 import { toast } from 'react-toastify'
 import { setupAPIClient } from '../../services/api';

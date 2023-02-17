@@ -3,16 +3,16 @@ import styles from './styles.module.scss';
 
 import { FiX } from 'react-icons/fi';
 
-import { ChartProps } from '../../pages/viewPac'
+import { ChartProps } from '../../pages/viewPat'
 
 interface ModalChartProps{
     isOpen: boolean,
     onRequestClose: () => void;
-    chart: ChartProps[];
+    chart: ChartProps | undefined;
 }
 
 export function ModalChart({ isOpen, onRequestClose, chart}:ModalChartProps){
-    
+    console.log(chart)
     const customStyles = {
         content:{
             top: '50%',
@@ -25,8 +25,8 @@ export function ModalChart({ isOpen, onRequestClose, chart}:ModalChartProps){
         }
     }
     
-    function dateConvertChart(date: string) {
-        var data = new Date(date);
+    function dateConvertChart(created_at: any) {
+        var data = new Date(created_at);
         var dataFormatadaChart = data.toLocaleDateString('pt-BR', {
             timeZone: 'UTC'
         });
@@ -52,13 +52,13 @@ export function ModalChart({ isOpen, onRequestClose, chart}:ModalChartProps){
         <div className={styles.container}>
 
             <h2>Detalhes do prontuario</h2>
-            <p>{dateConvertChart(chart[0].date)}</p>
+            <p>{dateConvertChart(chart?.created_at)}</p>
             <span className={styles.title}>
-                Titulo: <strong>{chart[0].title}</strong>
+                Titulo: <strong>{chart?.title}</strong>
             </span>
             <div>
                 <span className={styles.descrição}>
-                    Descrição: <strong>{chart[0].description}</strong>
+                    Descrição: <strong>{chart?.description}</strong>
                 </span>
             </div>
 
