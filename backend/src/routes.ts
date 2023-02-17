@@ -20,8 +20,9 @@ router.post('/user', new CreateUserController().handle)
 
 router.post('/session', new AuthUserController().handle)
 
-router.get('/user/info', isAuthenticated, new DetailUserController().handle)
+router.get('/user/info', isAuthenticated, new DetailUserController().getUserWithOutId)
 
+router.get('/user/info/:id', isAuthenticated, new DetailUserController().getUserWithId)
 
 router.put('/user', isAuthenticated, new UpdateUserController().handle)
 
@@ -37,7 +38,9 @@ router.put('/patient/:id', isAuthenticated, new UpdatePatientController().handle
 //--Chart--
 router.post('/patient/chart/:id', isAuthenticated, new CreateChartController().handle)
 
-router.get('/patient/chart/:id', isAuthenticated, new DetailChartController().handle)
+router.get('/patient/chart/:id', isAuthenticated, new DetailChartController().handleAll)
+
+router.get('/patient/chart/detail/:id', isAuthenticated, new DetailChartController().handleUnique)
 
 //--Cepsi Insert--
 router.post('/patient/insertion/:id', isAuthenticated, new CreateInsertController().handle)
