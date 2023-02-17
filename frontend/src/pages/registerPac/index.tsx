@@ -11,25 +11,25 @@ import Router from 'next/router';
 import { parseCookies } from 'nookies';
 import Link from 'next/link';
 import { FiChevronsLeft } from 'react-icons/fi';
+import dayjs from 'dayjs';
+var utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
 
-interface IdOwner {
-    id: string
-}
-
-export default function RegisterPac({ id }: IdOwner) {
+export default function RegisterPac() {
 
     const [name, setName] = useState('');
-    const [date, setDate] = useState('');
+    const [socialName, setSocialName] = useState(false);
+    const [birthDate, setBirthDate] = useState("0000-00-00T00:00:00.000Z");
     const [schooling, setSchooling] = useState('Ensino Fundamental Incompleto');
+    const [gender, setGender] = useState('');
     const [rg, setRg] = useState('');
     const [cpf, setCpf] = useState('');
-    const [district, setDistrict] = useState('');
-    const [phone, setPhone] = useState('');
-    const [career, setCareer] = useState('');
     const [status, setStatus] = useState('Solteiro');
-    const [workplace, setWorkplace] = useState('');
-    const [familyIncome, setFamilyIncome] = useState('');
+    const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
+    const [familyIncome, setFamilyIncome] = useState(0);
+    const [career, setCareer] = useState('');
+    const [workplace, setWorkplace] = useState('');
 
     const [minor, setMinor] = useState(false);
     const [accountable, setAccountable] = useState('');
@@ -37,10 +37,19 @@ export default function RegisterPac({ id }: IdOwner) {
     const [rgAccountable, setRgAccountable] = useState('');
     const [cpfAccountable, setCpfAccountable] = useState('');
 
-    const [idOwner, seIdOwner] = useState(id);
+    const [cep, setCep] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [district, setDistrict] = useState('');
+    const [street, setStreet] = useState('');
+    const [number, setNumber] = useState('');
+
+    const [menuAdress, setMenuAdress] = useState(false)
+
 
     function verifyIfMinor(date: string) {
-        setDate(date)
+
+        setBirthDate(date)
 
         let birthDate = new Date(date)
         var today = new Date();
@@ -69,6 +78,10 @@ export default function RegisterPac({ id }: IdOwner) {
 
     }
 
+    function handleAdressMenu() {
+        setMenuAdress(!menuAdress)
+    }
+
     async function handleRegister(event: FormEvent) {
         event.preventDefault();
         let message: string = ''
@@ -76,7 +89,7 @@ export default function RegisterPac({ id }: IdOwner) {
             if (name === '') {
                 message = message + " nome "
             }
-            if (date === '') {
+            if (birthDate === '') {
                 message = message + " data de nascimento "
             }
             if (phone === '') {
@@ -85,39 +98,49 @@ export default function RegisterPac({ id }: IdOwner) {
             if (email === '') {
                 message = message + "  Email "
             }
+            if (rg === '' && cpf === '') {
+                message = message + "  RG ou CPF "
+            }
             if (minor) {
-                if(accountable === '' || kindship === '' || rgAccountable === null ||cpfAccountable === null) {
-                message = message + "  Dados do Responsáveis "
+                if (accountable === '' || kindship === '' || rgAccountable === null || cpfAccountable === null) {
+                    message = message + "  Dados do Responsáveis "
                 }
             }
-                
+
             if (message !== '') {
                 toast.error('Preencha os campos: ' + message);
                 return;
             }
 
+            const dateConvertUTC = dayjs(birthDate).utc().format()
+            setBirthDate(dateConvertUTC)
+
             const apiClient = setupAPIClient();
-            await apiClient.post("/patient", {
-                nome: name,
-                dataNascimento: date,
-                escolaridade: schooling,
+            const response = await apiClient.post("/patient", {
+                name: name,
+                social_name: socialName,
+                birthDate: dateConvertUTC,
+                schooling: schooling,
+                gender: gender,
                 rg: rg,
                 cpf: cpf,
-                bairro: district,
-                telefone: phone,
-                profissao: career,
-                estadoCivil: status,
-                localTrabalho: workplace,
-                rendaFamiliar: familyIncome,
+                status: status,
+                phone: phone,
                 email: email,
-
-                id_dono: idOwner,
-
-                menorIdade: minor,
-                nomeResp: accountable,
-                parentesco: kindship,
-                rgResp: rgAccountable,
-                cpfResp: cpfAccountable
+                family_income: familyIncome,
+                career: career,
+                workplace: workplace,
+                minor: minor,
+                accountableName: accountable,
+                kindship: kindship,
+                rgAccountable: rgAccountable,
+                cpfAccountable: cpfAccountable,
+                cep: cep,
+                city: city,
+                state: state,
+                district: district,
+                street: street,
+                number: number
             });
 
             toast.success("Paciente Cadastrado!");
@@ -147,6 +170,8 @@ export default function RegisterPac({ id }: IdOwner) {
                         </Link>
                     </div>
                     <form className={styles.form} onSubmit={handleRegister}>
+
+
                         <div className={styles.formComponent}>
                             <input
                                 type="text"
@@ -159,11 +184,35 @@ export default function RegisterPac({ id }: IdOwner) {
                                 Nome:
                             </label>
                         </div>
+
+                        <div className={styles.dualComponent}>
+                            <div className={styles.formComponent}>
+                                <input
+                                    type="text"
+                                    placeholder=' '
+                                    className={styles.input}
+                                    value={gender}
+                                    onChange={(e) => setGender(e.target.value)}
+                                />
+                                <label className={styles.placeholder}>
+                                    Gênero:
+                                </label>
+
+                            </div>
+                            <div className={styles.checkbox}>
+                                <label >
+                                    Nome Social:
+                                </label>
+                                <input type="checkbox" checked={socialName} onChange={(e) => setSocialName(!socialName)} />
+                            </div>
+                        </div>
+
+
                         <div className={styles.formComponent}>
                             <input
                                 type="date"
                                 className={styles.input}
-                                value={date}
+                                value={birthDate}
                                 onChange={(e) => verifyIfMinor(e.target.value)}
                             />
                             <label className={styles.placeholder}>
@@ -216,18 +265,6 @@ export default function RegisterPac({ id }: IdOwner) {
                             </label>
                         </div>
 
-                        <div className={styles.formComponent}>
-                            <input
-                                type="text"
-                                placeholder=' '
-                                className={styles.input}
-                                value={district}
-                                onChange={(e) => setDistrict(e.target.value)}
-                            />
-                            <label className={styles.placeholder}>
-                                Bairro:
-                            </label>
-                        </div>
 
                         <div className={styles.formComponent}>
                             <input
@@ -288,7 +325,7 @@ export default function RegisterPac({ id }: IdOwner) {
                                 type="number"
                                 placeholder=' '
                                 className={styles.input}
-                                onChange={(e) => setFamilyIncome(e.target.value)}
+                                onChange={(e) => setFamilyIncome(e.target.valueAsNumber)}
                             />
                             <label className={styles.placeholder}>
                                 Renda Familiar:
@@ -362,6 +399,98 @@ export default function RegisterPac({ id }: IdOwner) {
                             </div>
                         }
 
+                        <div className={menuAdress ? styles.adressConteinerClose : styles.adressConteinerOpen}>
+                            <div onClick={handleAdressMenu} className={styles.menuAdress}>
+                                <h2>Endereço</h2>
+                                <div>
+                                    <label className={styles.containerHamburguer}>
+                                        <div className={styles.checkmark}>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div className={styles.adressContent}>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="number"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={cep}
+                                        onChange={(e) => setCep(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        CEP:
+                                    </label>
+                                </div>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="text"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={city}
+                                        onChange={(e) => setCity(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        Cidade:
+                                    </label>
+                                </div>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="text"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={state}
+                                        onChange={(e) => setState(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        Estado:
+                                    </label>
+                                </div>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="text"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={district}
+                                        onChange={(e) => setDistrict(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        Bairro:
+                                    </label>
+                                </div>
+
+                                <div className={styles.dualComponent}>
+                                    <div className={styles.formComponent}>
+                                        <input
+                                            type="text"
+                                            placeholder=' '
+                                            className={styles.input}
+                                            value={street}
+                                            onChange={(e) => setStreet(e.target.value)}
+                                        />
+                                        <label className={styles.placeholder}>
+                                            Rua:
+                                        </label>
+                                    </div>
+                                    <div className={styles.formComponent}>
+                                        <input
+                                            type="number"
+                                            placeholder=' '
+                                            className={styles.input}
+                                            value={number}
+                                            onChange={(e) => setNumber(e.target.value)}
+                                        />
+                                        <label className={styles.placeholder}>
+                                            Numero:
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <button className={styles.buttonAdd} type='submit'>
                             Cadastrar
                         </button>
@@ -376,12 +505,10 @@ export default function RegisterPac({ id }: IdOwner) {
 
 export const getServerSideProps = canSSRAuth(async (ctx: any) => {
 
-    const cookies = parseCookies(ctx);
-    const id = cookies['@nextuser.id'];
 
     return {
         props: {
-            id: id
+
         }
     }
 })

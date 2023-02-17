@@ -120,7 +120,7 @@ export default function Home() {
 
             </div>
           </div>
-          {/* ///////////////////////////////////////////////////////////////////////////////////////////////////// */}
+          
           <div className={styles.containerBack}>
             <div className={styles.containerImgBack}>
               <Image src={SigninImg} alt="Imagem Psicologa" className={styles.imgSingin} />

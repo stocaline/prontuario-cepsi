@@ -80,6 +80,25 @@
     }
 }
 
+.dualComponent{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    
+    .checkbox{
+        height: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        input{
+            width: 1.4rem;
+            height: 1.4rem;
+            margin-left: 1rem;
+        }
+    }
+
+}
+
 .placeholderSelect{
     top: -10px;
 }
@@ -95,6 +114,50 @@
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 }
+
+.adressConteinerOpen,
+    .adressConteinerClose{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border-radius: 1rem;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 5px black;
+        overflow: hidden;
+        transition: all 1s ease-in-out;
+
+        .menuAdress{
+            width: 100%;
+            padding: 0.5rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+
+            
+        }
+}
+
+.adressConteinerClose{
+    height: 2.5rem;
+
+    .adressContent{
+        margin-top: 4rem;
+        padding: 1.3rem;
+        
+    }
+}
+
+.adressConteinerOpen{
+
+
+    .adressContent{
+        padding: 1.3rem;
+        
+    }
+}
+
 
 .accountableContainer{
     animation-name: slidein;
@@ -117,3 +180,47 @@
       width: 100%;
     }
 }
+
+
+
+
+.containerHamburguer {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    font-size: 1rem;
+    user-select: none;
+    margin-right: 1rem;
+  }
+  
+  .checkmark {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 1.3em;
+    width: 1.3em;
+  }
+  
+  .checkmark span {
+    width: 2rem;
+    height: 2px;
+    background-color: rgb(0, 0, 0);
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+  
+  .checkmark span:nth-child(1) {
+    top: 0%;
+  }
+  
+  .checkmark span:nth-child(2) {
+    top: 40%;
+  }
+  
+  .checkmark span:nth-child(3) {
+    top: 90%;
+  }
