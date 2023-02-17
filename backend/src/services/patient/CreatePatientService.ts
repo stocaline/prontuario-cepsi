@@ -40,13 +40,18 @@ interface PatientAccountableRequest{
 class CreatePatientService{
     async createPatient({ user_id, name, social_name, schooling, birthDate,  gender, rg, cpf, status, phone, email, family_income, career, workplace, minor}: PatientRequest){
 
-        const patientAlreadyExists = await prismaClient.patient.findFirst({
+        const RGPatientAlreadyExists = await prismaClient.patient.findFirst({
             where:{
                 rg: rg
             }
         })
+        const CPFPatientAlreadyExists = await prismaClient.patient.findFirst({
+            where:{
+                cpf: cpf
+            }
+        })
 
-        if(patientAlreadyExists){
+        if(RGPatientAlreadyExists || CPFPatientAlreadyExists){
             throw new Error("Patient already exists")
         }
 
