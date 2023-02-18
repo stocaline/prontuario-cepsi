@@ -389,12 +389,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                </div>
                                 
                                 : <div className={styles.withOutChartDescription}>
-                                    <p>Cadastre a Inserção Cepsi do Paciente </p>
-                                    <Link href={'/registerInsertion'}>
-                                        <button className={styles.buttonAdd}>
-                                            <AiOutlinePlus size={15} />
-                                        </button>
-                                    </Link>
+                                    <p>Este paciente ainda não possui uma inserção Cepsi! Click<Link href={'/registerInsertion'}> <span className={styles.link}>AQUI</span> </Link> para cadastrar</p>
                                 </div>
                                 }
 
@@ -434,6 +429,7 @@ export const getServerSideProps = canSSRAuth(async (ctx: any) => {
     const response = await apiClient.get(`/patient/info/${id}`);
     const OwnerId = response.data.Owner_id
     const Owner = await apiClient.get(`/user/info/${OwnerId}`);
+    
     return {
         props: {
             pacs: response.data,
