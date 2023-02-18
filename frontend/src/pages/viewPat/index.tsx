@@ -86,6 +86,7 @@ interface HomeProps {
 export default function ViewPat({ pacs, owner }: HomeProps) {
     const [pacList, setPacList] = useState(pacs || []);
     const [chartList, setChartList] = useState(pacs.charts || []);
+    const [insertionCepsi, setInsertionCepsi] = useState(pacs.cepsi_insert || []);
     const [ownerProps, setOwnerProps] = useState(owner || "")
     const [pacMinor, setPacMinor] = useState(verifyIfMinor(pacList.minor));
 
@@ -227,13 +228,13 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                         <h4>Identificação</h4>
                                         <div className={styles.pacItemConteiner}>
                                             <div className={styles.pacItemContent}>
-                                            {pacList.social_name ?
-                                                        <label>Nome Social:</label>
-                                                        : <label>Nome:</label>
+                                                {pacList.social_name ?
+                                                    <label>Nome Social:</label>
+                                                    : <label>Nome:</label>
                                                 }
                                                 <input type="text" disabled value={pacList.name} />
                                             </div>
-                                            
+
                                             <div className={styles.pacItemContent}>
                                                 <label>Data de nascimeto:</label>
                                                 <input type="text" disabled value={dateConvert(pacList.birthDate)} />
@@ -347,28 +348,28 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                         </button>
                                     </Link>
                                 </div>
-                                
+
                                 {pacList.charts.length > 0 ?
-                                <table className={styles.listOrders}>
-                                    <thead >
-                                        <tr className={styles.listHeader}>
-                                            <th>Titulo</th>
-                                            <th>Data de Criação</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {chartList.map(item => (
-                                            <tr key={item.id} onClick={() => handleOpenModal(item.id)} className={styles.orderItem}>
-                                                <td>{(item.title).substring(0, 20)}</td>
-                                                <td>{dateConvert(item.created_at)}</td>
+                                    <table className={styles.listOrders}>
+                                        <thead >
+                                            <tr className={styles.listHeader}>
+                                                <th>Titulo</th>
+                                                <th>Data de Criação</th>
                                             </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                                
-                                : <div className={styles.withOutChartDescription}>
-                                    <p>Este paciente ainda não possui prontuarios!</p>
-                                </div>
+                                        </thead>
+                                        <tbody>
+                                            {chartList.map(item => (
+                                                <tr key={item.id} onClick={() => handleOpenModal(item.id)} className={styles.orderItem}>
+                                                    <td>{(item.title).substring(0, 20)}</td>
+                                                    <td>{dateConvert(item.created_at)}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+
+                                    : <div className={styles.withOutChartDescription}>
+                                        <p>Este paciente ainda não possui prontuarios!</p>
+                                    </div>
                                 }
                             </Tab.Panel>
 
@@ -376,21 +377,53 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                 <div className={styles.containerSubHeader}>
                                 </div>
                                 {pacList.cepsi_insert ?
-                               
-                               <div className={styles.pacItem}>
-                               <h4>Tipo</h4>
-                               <div className={styles.pacItemConteiner}>
-                                   <div className={styles.pacItemContent}>
-                                       <label>Nome:</label>
-                                       <input type="text" disabled value={ownerProps.name} />
-                                   </div>
-                                   
-                               </div>
-                               </div>
-                                
-                                : <div className={styles.withOutChartDescription}>
-                                    <p>Este paciente ainda não possui uma inserção Cepsi! Click<Link href={'/registerInsertion'}> <span className={styles.link}>AQUI</span> </Link> para cadastrar</p>
-                                </div>
+
+                                    <div className={styles.insertItem}>
+                                        <h4>INSERÇÃO NO CEPSI</h4>
+                                        <div className={styles.insertItemConteiner}>
+                                            <div className={styles.insertItemContent}>
+                                                <label>Tipo de encaminhamento:</label>
+                                                <input type="text" disabled value={insertionCepsi.type} />
+                                            </div>
+                                            <div className={styles.insertItemContent}>
+                                                <label>Orgão encaminhador:</label>
+                                                <input type="text" disabled value={insertionCepsi.forwarding_agency} />
+                                            </div>
+                                            <div className={styles.insertItemContent}>
+                                                <label>Profissional encaminhador:</label>
+                                                <input type="text" disabled value={insertionCepsi.forwarding_professional} />
+                                            </div>
+                                            <div className={styles.insertItemContent}>
+                                                <label>Telefone:</label>
+                                                <input type="text" disabled value={insertionCepsi.phone} />
+                                            </div>
+                                            <div className={styles.insertItemContent}>
+                                                <label>Motivo do encaminhamento:</label>
+                                                <input type="text" disabled value={insertionCepsi.reason} />
+                                            </div>
+                                        </div>
+                                        <h4>Serviço Anterior</h4>
+                                        {insertionCepsi.looked_for_another_service ?
+                                            <div className={styles.insertItemContent}>
+                                                <div className={styles.insertItemContent}>
+                                                    <label>Nome do local:</label>
+                                                    <input type="text" disabled value={insertionCepsi.name_another_service} />
+                                                </div>
+                                                <div className={styles.insertItemContent}>
+                                                    <label>Tempo de permanência:</label>
+                                                    <input type="text" disabled value={insertionCepsi.lenght_of_stay_in_months} />
+                                                </div>
+                                            </div>
+
+                                            :<div className={styles.withOutChartDescription}>
+                                                <p>Não procurou por serviços anteriormente!</p>
+                                            </div> 
+                                        }
+                                    </div>
+
+                                    : <div className={styles.withOutChartDescription}>
+                                        <p>Este paciente ainda não possui uma inserção Cepsi! Click<Link href={'/registerInsertion'}> <span className={styles.link}>AQUI</span> </Link> para cadastrar</p>
+                                    </div>
                                 }
 
                             </Tab.Panel>
@@ -429,7 +462,7 @@ export const getServerSideProps = canSSRAuth(async (ctx: any) => {
     const response = await apiClient.get(`/patient/info/${id}`);
     const OwnerId = response.data.Owner_id
     const Owner = await apiClient.get(`/user/info/${OwnerId}`);
-    
+
     return {
         props: {
             pacs: response.data,

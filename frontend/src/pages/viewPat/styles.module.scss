@@ -90,7 +90,6 @@
 
 .pacItem {
 
-
     h4 {
         width: 105%;
         margin-left: -2%;
@@ -101,15 +100,13 @@
         background-color: #e0e0e0;
     }
 
-    .pacItemConteiner {
+    .pacItemConteiner{
+        gap: 1rem;
+        grid-template-columns: 1fr 1fr;
         margin-top: 1rem;
         margin-bottom: 1rem;
         display: grid;
-        gap: 1rem;
-        grid-template-columns: 1fr 1fr;
         align-items: center;
-
-
 
         .pacItemContent {
             display: flex;
@@ -206,4 +203,43 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
+}
+
+.insertItem {
+
+    h4 {
+        width: 105%;
+        margin-left: -2%;
+        padding-left: 1rem;
+        color: #504f4f;
+        font-size: 1rem;
+        font-weight: 700;
+        background-color: #e0e0e0;
+    }
+    
+    .insertItemConteiner{
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: grid;
+        grid-template-columns: 2fr;
+    }
+    .insertItemContent {
+        display: grid;
+        margin-bottom: 0.5rem;
+
+        label {
+            color: #5c5b5be8;
+            margin-top: 0.5rem;
+            margin-right: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        input {
+            padding: 0.4rem;
+            background-color: transparent;
+            border: 1px rgb(231, 231, 231) solid;
+            border-radius: 5px;
+        }
+    }
 }
