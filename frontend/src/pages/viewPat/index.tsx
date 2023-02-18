@@ -37,14 +37,14 @@ export type PatientsProps = {
 }
 
 type CepsiInsertProps = {
-type: string,
-forwarding_agency: string,
-forwarding_professional: string,
-phone: string,
-reason: string,
-looked_for_another_service: boolean,
-name_another_service: string,
-lenght_of_stay_in_months: string,
+    type: string,
+    forwarding_agency: string,
+    forwarding_professional: string,
+    phone: string,
+    reason: string,
+    looked_for_another_service: boolean,
+    name_another_service: string,
+    lenght_of_stay_in_months: string,
 }
 
 type AccountableProps = {
@@ -374,7 +374,6 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
 
                             <Tab.Panel>
                                 <div className={styles.containerSubHeader}>
-                                    <h1>Inserção Cepsi</h1>
                                 </div>
                                 {pacList.cepsi_insert ?
                                
@@ -385,10 +384,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                        <label>Nome:</label>
                                        <input type="text" disabled value={ownerProps.name} />
                                    </div>
-                                   <div className={styles.pacItemContent}>
-                                       <label>Matricula:</label>
-                                       <input type="text" disabled value={ownerProps.registration} />
-                                   </div>
+                                   
                                </div>
                                </div>
                                 

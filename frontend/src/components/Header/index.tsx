@@ -27,7 +27,7 @@ export function Header() {
                         <span></span>
                     </label>
 
-                    <div className={styles.slideMenu}>
+                    <div className={active ? styles.slideMenuOpen : styles.slideMenuClose}>
                         <div className={active ? styles.menuOpen : styles.menuClose}>
                             <div className={styles.list}>
                                 <ul className={styles.listItens}>

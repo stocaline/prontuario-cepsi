@@ -7,7 +7,7 @@
     height: 10vh;
     margin: 0 auto;
     padding: 0;
-
+    
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -16,16 +16,26 @@
 }   
 
 .userContent{
-
-
+    
+    
 }
 
-.slideMenu{
+.slideMenuOpen{
     position: relative;
     top: 50vh;
     width: 20vw;
     height: 90vh;
-    transition: 2s ease-in-out;
+    
+    z-index: 10;
+}
+
+.slideMenuClose{
+    position: relative;
+    top: 50vh;
+    width: 20vw;
+    height: 90vh;
+    transition: 1s ease-out;
+    z-index: 0;
 }
 
 .menuNav{
@@ -71,23 +81,22 @@
 .menuOpen{
     width: 100%;
     height: 100%;
+    overflow: hidden;
     background: crimson;
     box-shadow: 10px 9px 10px 0px rgba(0, 0, 0, 0.59);
     left: 0vw;
     transition: all 0.3s ease-in-out;
+
 }
 
 .menuClose{
     width: 0vw;
     height: 100%;
+    overflow: hidden;
     background: crimson;
     box-shadow: 10px 4vw 10px 0px rgba(0, 0, 0, 0.59);
     transition: all 0.3s ease-in-out;
 
-    .list{
-        display: none;
-
-    }
 }
 
 

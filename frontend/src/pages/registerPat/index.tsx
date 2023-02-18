@@ -399,7 +399,7 @@ export default function RegisterPat() {
                             </div>
                         }
 
-                        <div className={menuAdress ? styles.adressConteinerClose : styles.adressConteinerOpen}>
+                        <div className={!menuAdress ? styles.adressConteinerClose : styles.adressConteinerOpen}>
                             <div onClick={handleAdressMenu} className={styles.menuAdress}>
                                 <h2>Endereço</h2>
                                 <div>
