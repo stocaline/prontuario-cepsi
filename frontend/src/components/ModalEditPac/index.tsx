@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 import { useState, FormEvent } from 'react'
 import { FiX } from 'react-icons/fi';
 
-import { PacProps } from '../../pages/viewPac'
+import { PatientsProps } from '../../pages/viewPat'
 
 import { toast } from 'react-toastify'
 import { setupAPIClient } from '../../services/api';
@@ -13,7 +13,7 @@ import Router from 'next/router';
 interface ModalPacProps {
     isOpen: boolean,
     onRequestClose: () => void;
-    pac: PacProps[];
+    pac: PatientsProps;
 }
 
 export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
@@ -30,19 +30,18 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
         }
     }
 
-    const [id, setId] = useState(pac[0].id)
-    const [name, setName] = useState(pac[0].nome);
-    const [date, setDate] = useState(dateConvert(pac[0].data_nascimento));
-    const [schooling, setSchooling] = useState(pac[0].escolaridade);
-    const [rg, setRg] = useState(pac[0].rg);
-    const [cpf, setCpf] = useState(pac[0].cpf);
-    const [district, setDistrict] = useState(pac[0].bairro);
-    const [phone, setPhone] = useState(pac[0].telefone);
-    const [career, setCareer] = useState(pac[0].profissao);
-    const [status, setStatus] = useState(pac[0].estado_civil);
-    const [workplace, setWorkplace] = useState(pac[0].local_trabalho);
-    const [familyIncome, setFamilyIncome] = useState(pac[0].renda_familiar);
-    const [email, setEmail] = useState(pac[0].email);
+    const [id, setId] = useState(pac.id)
+    const [name, setName] = useState(pac.name);
+    const [date, setDate] = useState(dateConvert(pac.birthDate));
+    const [schooling, setSchooling] = useState(pac.schooling);
+    const [rg, setRg] = useState(pac.rg);
+    const [cpf, setCpf] = useState(pac.cpf);
+    const [phone, setPhone] = useState(pac.phone);
+    const [career, setCareer] = useState(pac.career);
+    const [status, setStatus] = useState(pac.status);
+    const [workplace, setWorkplace] = useState(pac.workplace);
+    const [familyIncome, setFamilyIncome] = useState(pac.family_income);
+    const [email, setEmail] = useState(pac.email);
 
     const [minor, setMinor] = useState('');
     const [accountable, setAccountable] = useState('');
@@ -69,7 +68,7 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
 
         try {
 
-            if (name === '' || date === null || schooling === '' || rg === null || cpf === null || district === '' || phone === null || career === '' || status === '' || workplace === '' || familyIncome === null || email === '') {
+            if (name === '' || date === null || schooling === '' || rg === null || cpf === null || phone === null || career === '' || status === '' || workplace === '' || familyIncome === null || email === '') {
                 toast.error("Preencha todos os campos");
                 return;
             }
@@ -81,7 +80,6 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
                 escolaridade: schooling,
                 rg: rg,
                 cpf: cpf,
-                bairro: district,
                 telefone: phone,
                 profissao: career,
                 estadoCivil: status,
@@ -183,7 +181,7 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
                                 defaultValue={rg}
                                 className={styles.input}
                                 value={rg}
-                                onChange={(e) => setRg(e.target.valueAsNumber)}
+                                onChange={(e) => setRg(e.target.value)}
                             />
                         </div>
                         <div className={styles.formContainerContent}>
@@ -193,21 +191,11 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
                                 defaultValue={cpf}
                                 className={styles.input}
                                 value={cpf}
-                                onChange={(e) => setCpf(e.target.valueAsNumber)}
+                                onChange={(e) => setCpf(e.target.value)}
                             />
                         </div>
                     </div>
                     <div className={styles.formContainer}>
-                        <div className={styles.formContainerContent}>
-                            <label> Bairro: </label>
-                            <input
-                                type="text"
-                                defaultValue={district}
-                                className={styles.input}
-                                value={district}
-                                onChange={(e) => setDistrict(e.target.value)}
-                            />
-                        </div>
                         <div className={styles.formContainerContent}>
                             <label> Telefone: </label>
                             <input
@@ -215,7 +203,7 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
                                 defaultValue={phone}
                                 className={styles.input}
                                 value={phone}
-                                onChange={(e) => setPhone(e.target.valueAsNumber)}
+                                onChange={(e) => setPhone(e.target.value)}
                             />
                         </div>
                     </div>

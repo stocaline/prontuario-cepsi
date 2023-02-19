@@ -9,24 +9,26 @@ import { toast } from 'react-toastify'
 
 
 type UserProps = {
-    id: number;
+    id: string;
     name: string;
-    matricula: string;
+    registration: string;
+    email: string;
 }
 
 type SignInProps = {
-    matricula: string;
+    registration: string;
     password: string;
 }
 
 type SignUpProps = {
-    matricula: string;
     name: string;
+    email: string;
+    registration: string;
     password: string;
 }
 
 type AuthContextData = {
-    user: UserProps;
+    user: UserProps | null;
     isAuthenticated: boolean;
     signIn: (credential: SignInProps) => Promise<void>;
     signOut: () => void;
@@ -54,14 +56,14 @@ export function AuthProvider({ children }: AuthProviderProps){
     const [user, setUser] = useState<UserProps | null>(null)
     const isAuthenticated = !!user;
 
-    async function signIn({matricula, password}: SignInProps){
+    async function signIn({registration, password}: SignInProps){
         try{
-            const response = await api.post('/users/login', {
-             matricula,
+            const response = await api.post('/session', {
+            registration,
              password
             })
 
-            const { id, name, token} = response.data;
+            const { id, name, email, token} = response.data;
 
             setCookie(undefined, '@nextauth.token', token,{
             maxAge: 60 * 60 * 24 * 30,
@@ -72,7 +74,8 @@ export function AuthProvider({ children }: AuthProviderProps){
         setUser({
             id,
             name,
-            matricula,
+            email,
+            registration,
         })
 
         api.defaults.headers['Authorization'] = `x-access-token ${token}`
@@ -87,17 +90,16 @@ export function AuthProvider({ children }: AuthProviderProps){
         }
     }
 
-    async function signUp({ matricula, name, password}: SignUpProps) {
+    async function signUp({  name, email, registration, password}: SignUpProps) {
         try{
-            const response = await api.post('/users/singup',{
-                matricula,
+            const response = await api.post('/user',{
                 name,
-                password
+                email,
+                password,
+                registration,
             })
 
             toast.success("Cadastrado com sucesso!")
-
-            Router.push('/')
 
         }catch(err){
             toast.error('Erro ao cadastrar')

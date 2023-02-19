@@ -7,48 +7,25 @@ import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
 import Router from 'next/router';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
+import { json } from 'stream/consumers';
 
-type PacProps = {
-    id: string,
-    nome: string,
-    data_nascimento: string,
-    escolaridade: string,
-    rg: number,
-    cpf: number,
-    bairro: string,
-    telefone: number,
-    profissao: string,
-    estado_civil: string,
-    local_trabalho: string,
-    email: string,
-    menor_idade: boolean,
-    nome_resp: string,
-    parentesco: string,
-    rg_resp: number,
-    cpf_resp: number,
-    ultima_visita: string
+import { FiUser } from 'react-icons/fi'
+
+type UserProps = {
+    id: string
+    name: string
+    email: string
+    registration: string
+    patients: []
 }
 
-interface HomeProps {
-    pacs: PacProps[];
+interface data{
+    user: UserProps
 }
 
-function dateConvert({ ultima_visita }: PacProps) {
-    var data = new Date(ultima_visita);
-    var dataFormatada = data.toLocaleDateString('pt-BR', {
-        timeZone: 'UTC'
-    });
-    return dataFormatada;
-}
+export default function Dashboard(data: data) {
 
-export function handleOpenViewPac(id: string) {
-    setCookie(undefined, '@nextpac.id', id);
-    Router.push('/viewPac');
-}
-
-export default function Dashboard({ pacs }: HomeProps) {
-
-    const [pacList, setPacList] = useState(pacs || []);
+    const [userInfo, setUserInfo] = useState(data.user || "")
 
     return (
         <>
@@ -56,34 +33,32 @@ export default function Dashboard({ pacs }: HomeProps) {
                 <title>Painel - Prontuario Cepsi</title>
             </Head>
             <div>
-                <Header />
 
                 <main className={styles.container}>
-                    <div className={styles.containerHeader}>
-                        <h1>Pacientes</h1>
-                        <Link href='/registerPac'>
-                            <button className={styles.buttonAdd}>
-                                Adicionar
-                            </button>
+                    <h1>Dashboard</h1>
+                    <div className={styles.content}>
+                        <div className={styles.card}>
+                            <div className={styles.userConteiner}>
+                                <div className={styles.circleUser}>
+                                    <FiUser size={50} />
+                                </div>
+                                <div className={styles.userInfo}>
+                                    <h3>{userInfo.name}</h3>
+                                    <p><strong>Matricula:</strong> {userInfo.registration}</p>
+                                    <p><strong>email:</strong> {userInfo.email}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <Link href={'/patients'}>
+                            <div className={styles.card}>
+                                <h2>Pacientes</h2>
+                                <p></p>
+                            </div>
                         </Link>
+                        <div className={styles.card}>
+                            <h2>Agenda</h2>
+                        </div>
                     </div>
-
-                    <table className={styles.listOrders}>
-                        <thead >
-                            <tr className={styles.listHeader}>
-                                <th>Nome do Paciente</th>
-                                <th>Ultima Visita</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {pacList.map(item => (
-                                <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
-                                        <td>{item.nome}</td>
-                                        <td>{dateConvert(item)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
                 </main>
             </div>
         </>
@@ -92,15 +67,12 @@ export default function Dashboard({ pacs }: HomeProps) {
 
 export const getServerSideProps = canSSRAuth(async (ctx: any) => {
 
-    const cookies = parseCookies(ctx);
-    const id = cookies['@nextuser.id'];
-
     const apiClient = setupAPIClient(ctx);
-    const response = await apiClient.get(`/user/pacs/${id}`);
+    const response = await apiClient.get(`/user/info`);
 
     return {
         props: {
-            pacs: response.data
+            user: response.data
         }
     }
 })

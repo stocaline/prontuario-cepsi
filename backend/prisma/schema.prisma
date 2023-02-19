@@ -1,0 +1,145 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(uuid())
+  name         String
+  email        String
+  email_valid  Boolean?  @default(false)
+  password     String
+  registration String
+  admin        Boolean?  @default(false)
+  created_at   DateTime? @default(now())
+  updated_at   DateTime? @default(now())
+  patients     Patient[]
+
+  @@map("users")
+}
+
+model Patient {
+  id            String   @id @default(uuid())
+  name          String
+  social_name   Boolean?
+  birthDate     DateTime
+  schooling     String?
+  gender        String?
+  rg            String?
+  cpf           String?
+  status        String?
+  phone         String?
+  email         String
+  family_income Float?
+  career        String?
+  workplace     String?
+
+  minor Boolean
+
+  last_visit DateTime? @default(now())
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  accountable  Accountable?
+  address      Address?
+  cepsi_insert Cepsi_insertion?
+  charts       Chart[]
+  schedule     Schedule[]
+
+  user     User   @relation(fields: [Owner_id], references: [id])
+  Owner_id String
+
+  @@map("patients")
+}
+
+model Address {
+  id       String  @id @default(uuid())
+  cep      String?
+  city     String?
+  state    String?
+  district String?
+  street   String?
+  number   String?
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String  @unique
+
+  @@map("adresses")
+}
+
+model Accountable {
+  id             String  @id @default(uuid())
+  name           String
+  kindship       String?
+  rgAccountable  String?
+  cpfAccountable String?
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String  @unique
+
+  @@map("accountables")
+}
+
+model Cepsi_insertion {
+  id                         String  @id @default(uuid())
+  type                       String
+  forwarding_agency          String
+  forwarding_professional    String
+  phone                      String
+  reason                     String
+  looked_for_another_service Boolean
+  name_another_service       String
+  lenght_of_stay_in_months   String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  patient   Patient @relation(fields: [patientId], references: [id])
+  patientId String  @unique
+
+  @@map("cepsi_inserts")
+}
+
+model Chart {
+  id          String    @id @default(uuid())
+  title       String
+  description String
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
+
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId String?
+
+  @@map("charts")
+}
+
+model Schedule {
+  id   String   @id @default(uuid())
+  date DateTime
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @default(now())
+
+  Patient   Patient? @relation(fields: [patientId], references: [id])
+  patientId String?
+
+  @@map("schedules")
+}

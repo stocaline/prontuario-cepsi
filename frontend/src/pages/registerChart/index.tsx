@@ -13,11 +13,11 @@ import { canSSRAuth } from '../../utils/canSSRAuth';
 import { parseCookies } from 'nookies';
 import Link from 'next/link';
 
-interface IdOwner {
+interface IdPatient {
     id: string
 }
 
-export default function RegisterChart({ id }: IdOwner) {
+export default function RegisterChart({ id }: IdPatient) {
 
     const [idOwner, setIdOwner] = useState(id)
     const [title, setTitle] = useState('');
@@ -33,14 +33,13 @@ export default function RegisterChart({ id }: IdOwner) {
             }
 
             const apiClient = setupAPIClient();
-            await apiClient.post(`/pac/register/chart`, {
-                idOwner: idOwner,
+            await apiClient.post(`/patient/chart/${idOwner}`, {
                 title: title,
-                desc: description,
+                description: description,
             });
 
             toast.success("Prontuario Cadastrado!");
-            Router.push('/viewPac');
+            Router.push('/viewPat');
 
         } catch (err) {
             console.log(err);
@@ -57,7 +56,7 @@ export default function RegisterChart({ id }: IdOwner) {
             <main className={styles.container}>
                 <div className={styles.containerHeader}>
                     <h1>Cadastro de Prontuario</h1>
-                    <Link href={'/viewPac'}>
+                    <Link href={'/viewPat'}>
                         <button>
                             <FiChevronsLeft size={30}/>
                         </button>
