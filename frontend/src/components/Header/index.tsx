@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import { FiLogOut } from 'react-icons/fi';
 import { AuthContext } from '../../contexts/AuthContext'
+import DropdownAvatarMenu from '../ui/DropdownAvatarMenu';
 
 export function Header() {
 
@@ -49,9 +50,7 @@ export function Header() {
                     </div>
 
                     <nav className={styles.menuNav}>
-                        <button onClick={signOut}>
-                            <FiLogOut color="#FFF" size={24} />
-                        </button>
+                        <DropdownAvatarMenu />
                     </nav>
 
                 </div>

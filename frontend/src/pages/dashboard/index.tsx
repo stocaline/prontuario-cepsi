@@ -33,7 +33,6 @@ export default function Dashboard(data: data) {
                 <title>Painel - Prontuario Cepsi</title>
             </Head>
             <div>
-                <Header />
 
                 <main className={styles.container}>
                     <h1>Dashboard</h1>
