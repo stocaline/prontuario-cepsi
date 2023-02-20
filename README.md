@@ -47,4 +47,7 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + Inserir a tabela/form de insercao no CEPSI
 + Nos prontuarios identificar pelo login quem está preenchendo o prontuário
 + permitir editar prontuarios.
-
++ No prontuario colocar os campos de data, horario e responsavel pelo atendimento (pegar lista dos usuarios)
+#### 3 Refazer o header da aplicação, com novo design e novas funções
++ Nome de usuário desaparece ao reiniciar a pagina
++ Usuário conseguir editar seus dados
