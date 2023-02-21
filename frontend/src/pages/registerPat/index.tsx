@@ -113,7 +113,6 @@ export default function RegisterPat() {
             }
 
             const dateConvertUTC = dayjs(birthDate).utc().format()
-            setBirthDate(dateConvertUTC)
 
             const apiClient = setupAPIClient();
             const response = await apiClient.post("/patient", {
@@ -144,7 +143,7 @@ export default function RegisterPat() {
             });
 
             toast.success("Paciente Cadastrado!");
-            Router.push('/dashboard');
+            Router.push('/patients');
 
         } catch (err) {
             console.log(err);
