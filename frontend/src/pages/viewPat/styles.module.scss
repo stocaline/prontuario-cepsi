@@ -208,6 +208,11 @@
 
 }
 
+.orderItem:last-child{
+    border-bottom: 0px;
+    border-radius: 0 0 1rem 1rem;
+}
+
 .orderItem:hover {
     background-color: rgb(241, 241, 241);
 }
