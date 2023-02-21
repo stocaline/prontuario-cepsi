@@ -1,15 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import Head from 'next/head';
 import Link from 'next/link';
-import { Header } from '../../components/Header'
 import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
 import Router from 'next/router';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
 import { json } from 'stream/consumers';
 
-import { FiUser } from 'react-icons/fi'
+import { FiLogOut, FiUser } from 'react-icons/fi'
+import { AuthContext } from '../../contexts/AuthContext';
 
 type UserProps = {
     id: string
@@ -19,23 +19,27 @@ type UserProps = {
     patients: []
 }
 
-interface data{
+interface data {
     user: UserProps
 }
 
 export default function Dashboard(data: data) {
 
     const [userInfo, setUserInfo] = useState(data.user || "")
-
+    const { signOut} = useContext(AuthContext)
+    
     return (
         <>
             <Head>
                 <title>Painel - Prontuario Cepsi</title>
             </Head>
             <div>
-
                 <main className={styles.container}>
-                    <h1>Dashboard</h1>
+                    <div className={styles.headerConteiner}>
+                        <div className={styles.header}>
+                            <h1>Dashboard</h1>
+                        </div>
+                    </div>
                     <div className={styles.content}>
                         <div className={styles.card}>
                             <div className={styles.userConteiner}>
@@ -46,15 +50,19 @@ export default function Dashboard(data: data) {
                                     <h3>{userInfo.name}</h3>
                                     <p><strong>Matricula:</strong> {userInfo.registration}</p>
                                     <p><strong>email:</strong> {userInfo.email}</p>
+                                    <button className={styles.buttonSingOut} onClick={signOut}>
+                                        <p>Sair</p>
+                                        <FiLogOut color="#000" size={24} />
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                        <Link href={'/patients'}>
-                            <div className={styles.card}>
+                        <div className={styles.card}>
+                            <Link href={'/patients'}>
                                 <h2>Pacientes</h2>
                                 <p></p>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                         <div className={styles.card}>
                             <h2>Agenda</h2>
                         </div>

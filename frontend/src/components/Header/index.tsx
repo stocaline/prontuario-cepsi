@@ -1,17 +1,13 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.scss';
 import Link from 'next/link';
-import Image from 'next/image';
 import { canSSRAuth } from '../../utils/canSSRAuth';
-import { FiLogOut } from 'react-icons/fi';
-import { AuthContext } from '../../contexts/AuthContext'
 import DropdownAvatarMenu from '../ui/DropdownAvatarMenu';
 
 export function Header() {
 
-    const { signOut, user } = useContext(AuthContext)
-
     const [active, setActive] = useState(false)
+
 
     const toggleMenu = () => {
         setActive(!active)
@@ -62,6 +58,7 @@ export function Header() {
 export const getServerSideProps = canSSRAuth(async (ctx) => {
 
     return {
-        props: {}
+        props: {
+        }
     }
 })

@@ -7,7 +7,6 @@ import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
 import Router from 'next/router';
 import { destroyCookie, setCookie, parseCookies } from 'nookies';
-import { json } from 'stream/consumers';
 
 type PatientsProps = {
     id: string,
@@ -53,22 +52,27 @@ export default function Patients({ patients }: HomeProps) {
                         </Link>
                     </div>
 
-                    <table className={styles.listOrders}>
-                        <thead >
-                            <tr className={styles.listHeader}>
-                                <th>Nome do Paciente</th>
-                                <th>Ultima Visita</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {patientList.map(item => (
-                                <tr key={item.id} onClick={ () => handleOpenViewPac(item.id)} className={styles.orderItem}>
+                    {patientList.length > 0 ?
+                        <table className={styles.listOrders}>
+                            <thead >
+                                <tr className={styles.listHeader}>
+                                    <th>Nome do Paciente</th>
+                                    <th>Ultima Visita</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {patientList.map(item => (
+                                    <tr key={item.id} onClick={() => handleOpenViewPac(item.id)} className={styles.orderItem}>
                                         <td>{item.name}</td>
                                         <td>{dateConvert(item)}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        : <div className={styles.patientListEmpty}>
+                            <p>Você ainda não possui pacientes cadastrados!</p>
+                        </div>
+                    }
                 </main>
             </div>
         </>

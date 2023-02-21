@@ -1,16 +1,32 @@
+
 .container {
-    max-width: 980px;
-    margin: 4rem auto;
     padding: 0 2rem;
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.headerConteiner{
+    background-image: repeating-linear-gradient(135deg, rgba(255,255,255, 0.09) 0px, rgba(255,255,255, 0.09) 1px,transparent 1px, transparent 11px),repeating-linear-gradient(45deg, rgba(255,255,255, 0.09) 0px, rgba(255,255,255, 0.09) 1px,transparent 1px, transparent 11px),linear-gradient(90deg, crimson,rgb(219,39,39));
+    width: 100%;
+    height: 35vh;
+    position: absolute;
+    color: white;
+    display: flex;
+    justify-content: center;
+
+    .header{
+       width: 60%;
+       padding-top: 2rem;
+    }
 }
 
 .content {
-    margin-top: 2rem;
+    margin-top: 20vh;
     display: flex;
     flex-direction: row;
     gap: 1vw;
+    z-index: 10;
 }
 
 .card {
@@ -18,6 +34,7 @@
     height: 50vh;
     padding: 2rem;
     border-radius: 1rem;
+    background-color: white;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.26);
 }
 
@@ -47,4 +64,23 @@
         gap: 0.2rem;
 
     }
+}
+
+.buttonSingOut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    background: #e9e9e9;
+    padding: 0.3rem;
+    border: 0;
+    border-radius: 2rem;
+    transition: transform 1s;
+
+    &:hover {
+        transform: scale(1.1);
+        background-color: rgb(253, 60, 60);
+        color: white;
+    }
+
 }

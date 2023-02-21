@@ -17,6 +17,15 @@
     button{
         background: transparent;
         border: 0;
+        border-radius: 100%;
+        transition: .3s;
+        padding: .2rem;
+    }
+
+    button:hover{
+        background-color: #3b82f6;
+        box-shadow: 0 0 0 5px #3b83f65f;
+        color: #fff;
     }
 }
 
@@ -42,6 +51,13 @@
         font-size: 1.2rem;
         font-weight: bold;
         color: var(--white);
+        transition: .3s;
+    }
+
+    button:hover{
+        background-color: #3b82f6;
+        box-shadow: 0 0 0 5px #3b83f65f;
+        color: #fff;
     }
 }
 

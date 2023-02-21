@@ -19,6 +19,7 @@
 
 
     .buttonEdit {
+        margin-left: 1rem;
         padding: 10px;
         color: var(--white);
         font-weight: bold;
@@ -26,6 +27,13 @@
         border: 0;
         border-radius: 10px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        transition: .3s;
+    }
+
+    .buttonEdit:hover{
+        background-color: #3b82f6;
+        box-shadow: 0 0 0 5px #3b83f65f;
+        color: #fff;
     }
 }
 
@@ -148,6 +156,13 @@
     border: 0;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: .3s;
+}
+
+.buttonAdd:hover{
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 5px #3b83f65f;
+    color: #fff;
 }
 
 .link {

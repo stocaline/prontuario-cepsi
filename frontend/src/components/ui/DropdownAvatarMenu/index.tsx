@@ -1,22 +1,38 @@
 import * as Popover from '@radix-ui/react-popover';
 import Link from 'next/link';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FiLogOut, FiUser } from 'react-icons/fi';
 import { AiOutlineClose } from 'react-icons/ai'
 import { AuthContext, signOut } from '../../../contexts/AuthContext';
 import styles from './styles.module.scss';
+import { setupAPIClient } from '../../../services/api';
+
+type UserProps = {
+  id: string
+  name: string
+}
 
 const DropdownAvatarMenu = () => {
 
   const { signOut, user } = useContext(AuthContext)
   const [toggleMenu, setToggleMenu] = useState(false)
 
+  const [userInfo, setUserInfo] = useState<UserProps>()
+  
+  useEffect(() => {
+      const apiClient = setupAPIClient();
+      apiClient.get('/user/info').then(response => {
+          setUserInfo(response.data)
+      })
+  }, [])
+
   return (
 
     <Popover.Root>
       <Popover.Trigger asChild>
         <button className={styles.IconButton} aria-label="Update dimensions">
-          <FiUser color="#000" size={24} />
+          <h4>{userInfo?.name.substring(0,2).toUpperCase()}</h4>
+          {/* <FiUser color="#000" size={24} /> */}
         </button>
       </Popover.Trigger>
       <Popover.Portal>

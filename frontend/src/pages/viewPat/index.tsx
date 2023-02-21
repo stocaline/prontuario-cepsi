@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { Header } from '../../components/Header'
 import { canSSRAuth } from '../../utils/canSSRAuth'
 import styles from './styles.module.scss'
-import { AiFillEdit, AiOutlinePlus } from 'react-icons/ai'
+import { AiFillEdit, AiOutlinePlus, AiOutlinePrinter } from 'react-icons/ai'
 import Image from 'next/image'
 import { setupAPIClient } from '../../services/api'
 import { useState } from 'react'
@@ -187,9 +187,14 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                 <main className={styles.container}>
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
-                        <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
-                            <AiFillEdit size={20} />
-                        </button>
+                        <div>
+                            <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
+                                <AiOutlinePrinter size={20} />
+                            </button>
+                            <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
+                                <AiFillEdit size={20} />
+                            </button>
+                        </div>
                     </div>
                     <div className={styles.contentHeader}>
                         <Image src="/fotoUsuario.png" alt="" width={70} height={70} />
@@ -415,9 +420,9 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                                 </div>
                                             </div>
 
-                                            :<div className={styles.withOutChartDescription}>
+                                            : <div className={styles.withOutChartDescription}>
                                                 <p>Não procurou por serviços anteriormente!</p>
-                                            </div> 
+                                            </div>
                                         }
                                     </div>
 
