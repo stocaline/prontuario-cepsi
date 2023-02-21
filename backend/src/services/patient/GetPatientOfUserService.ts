@@ -8,7 +8,8 @@ class GetPatientOfUserService{
             }
         })
 
-        return patients
+        
+        return patients.reverse()
     }
 }
 
