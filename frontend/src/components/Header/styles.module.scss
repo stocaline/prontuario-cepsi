@@ -24,6 +24,7 @@
 }
 
 .slideMenuClose{
+    overflow: hidden;
     position: relative;
     top: 50vh;
     width: 20vw;
@@ -57,6 +58,8 @@
     
     li{
         margin: 2rem 3rem;
+        display: flex;
+        gap: 1rem;
         cursor: pointer;
     }
     li:hover{

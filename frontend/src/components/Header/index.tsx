@@ -3,6 +3,7 @@ import styles from './styles.module.scss';
 import Link from 'next/link';
 import { canSSRAuth } from '../../utils/canSSRAuth';
 import DropdownAvatarMenu from '../ui/DropdownAvatarMenu';
+import { BsFillGrid1X2Fill, BsFillPeopleFill, BsFillFileEarmarkFill, BsCalendarDateFill } from 'react-icons/bs';
 
 export function Header() {
 
@@ -30,16 +31,24 @@ export function Header() {
                                 <ul className={styles.listItens}>
                                     <Link href="/dashboard">
                                         <li>
+                                            <BsFillGrid1X2Fill/>
                                             Dashboard
                                         </li>
                                     </Link>
                                     <Link href="/patients">
                                         <li>
+                                            <BsFillPeopleFill/>
                                             Pacientes
                                         </li>
                                     </Link>
-                                    <li>Documentos</li>
-                                    <li>Agenda</li>
+                                    <li>
+                                        <BsFillFileEarmarkFill/>
+                                        Documentos
+                                    </li>
+                                    <li>
+                                        <BsCalendarDateFill/>
+                                        Agenda
+                                    </li>
                                 </ul>
                             </div>
                         </div>
