@@ -10,6 +10,7 @@ import { setupAPIClient } from '../../services/api';
 import moment from 'moment';
 import Router from 'next/router';
 import dayjs from 'dayjs';
+import { Button } from '../ui/Button';
 var utc = require('dayjs/plugin/utc')
 dayjs.extend(utc)
 
@@ -35,6 +36,7 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
     }
 
     const [accordionOpen, setAccorrdioOpen] = useState(1)
+    const [loading, setLoading] = useState(false);
 
     const [patientid, setPatientId] = useState(pac.id);
     const [name, setName] = useState(pac.name);
@@ -85,9 +87,10 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
         event.preventDefault();
 
         try {
-
+            setLoading(true);
             if (name === '' || birthDate === null || schooling === '' || rg === null || cpf === null || phone === null || career === '' || status === '' || workplace === '' || familyIncome === null || email === '') {
                 toast.error("Preencha todos os campos");
+                setLoading(false);
                 return;
             }
 
@@ -119,7 +122,7 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
                 street: street,
                 number: number
             });
-
+            setLoading(false);
             toast.success("Paciente Alterado!");
             Router.reload();
 
@@ -437,10 +440,13 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
                         }
                     </div>
 
-
-                    <button className={styles.buttonAdd} type='submit'>
+                    <Button
+                        type="submit"
+                        loading={loading}
+                        style={{ backgroundColor: "rgb(52, 124, 231)" }}
+                    >
                         Salvar
-                    </button>
+                    </Button>
                 </form>
 
             </div >
