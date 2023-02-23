@@ -188,7 +188,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
                         <div>
-                            <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
+                            <button className={styles.buttonEdit}>
                                 <AiOutlinePrinter size={20} />
                             </button>
                             <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>

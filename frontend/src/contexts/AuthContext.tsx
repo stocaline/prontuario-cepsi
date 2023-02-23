@@ -66,7 +66,7 @@ export function AuthProvider({ children }: AuthProviderProps){
             const { id, name, email, token} = response.data;
 
             setCookie(undefined, '@nextauth.token', token,{
-            maxAge: 60 * 60 * 24 * 30,
+            maxAge: 60 * 60 * 24 * 1,
             path: "/"
         });
             setCookie(undefined, '@nextuser.id', id);
