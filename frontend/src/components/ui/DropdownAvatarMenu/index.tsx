@@ -6,10 +6,12 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { AuthContext } from '../../../contexts/AuthContext';
 import styles from './styles.module.scss';
 import { setupAPIClient } from '../../../services/api';
+import { ModalEditUser } from '../../ModalEditUser';
 
 type UserProps = {
   id: string
   name: string
+  email: string
 }
 
 const DropdownAvatarMenu = () => {
@@ -40,9 +42,9 @@ const DropdownAvatarMenu = () => {
               Opções
             </p>
             <div className={styles.Fieldset}>
-              <Link href={'/dashboard'}>
-                <p>Editar Perfil</p>
-              </Link>
+              <ModalEditUser
+                user={userInfo}
+              />
             </div>
               <button className={styles.button} onClick={signOut}>
                 <p>Sair</p>

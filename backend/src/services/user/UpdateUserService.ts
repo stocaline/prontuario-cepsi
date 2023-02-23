@@ -5,11 +5,10 @@ interface UserUpdateRequest{
     user_id: string;
     name: string;
     email: string;
-    password: string;
 }
 
 class UpdateUserService{
-    async handle({user_id, name, email, password}: UserUpdateRequest){
+    async handle({user_id, name, email}: UserUpdateRequest){
 
         const userExists = await prismaClient.user.findFirst({
             where:{
@@ -21,7 +20,7 @@ class UpdateUserService{
             throw new Error("User not exists")
         }
 
-        const passwordHash = await hash(password, 8)
+        //const passwordHash = await hash(password, 8)
 
         const user = await prismaClient.user.update({
             where: {
@@ -30,7 +29,6 @@ class UpdateUserService{
             data:{
                 name: name,
                 email: email,
-                password: passwordHash,
             },
             select:{
                 id: true,

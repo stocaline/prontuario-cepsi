@@ -12,7 +12,6 @@ interface ModalChartProps{
 }
 
 export function ModalChart({ isOpen, onRequestClose, chart}:ModalChartProps){
-    console.log(chart)
     const customStyles = {
         content:{
             top: '50%',
