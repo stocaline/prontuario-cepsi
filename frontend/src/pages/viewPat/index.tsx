@@ -30,7 +30,7 @@ export type PatientsProps = {
     workplace: string,
     minor: boolean,
     last_visit: string,
-    accountable: AccountableProps
+    accountable?: AccountableProps
     address: AddressProps
     cepsi_insert: CepsiInsertProps
     charts: ChartProps[]
@@ -322,19 +322,19 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                                                 <div className={styles.pacItemConteiner}>
                                                     <div className={styles.pacItemContent}>
                                                         <label>Responsável:</label>
-                                                        <input type="text" disabled value={pacList.accountable.name} />
+                                                        <input type="text" disabled value={pacList.accountable?.name} />
                                                     </div>
                                                     <div className={styles.pacItemContent}>
                                                         <label>RG responsável: </label>
-                                                        <input type="text" disabled value={pacList.accountable.rgAccountable} />
+                                                        <input type="text" disabled value={pacList.accountable?.rgAccountable} />
                                                     </div>
                                                     <div className={styles.pacItemContent}>
                                                         <label>Parentesco: </label>
-                                                        <input type="text" disabled value={pacList.accountable.kindship} />
+                                                        <input type="text" disabled value={pacList.accountable?.kindship} />
                                                     </div>
                                                     <div className={styles.pacItemContent}>
                                                         <label>CPF responsável: </label>
-                                                        <input type="text" disabled value={pacList.accountable.cpfAccountable} />
+                                                        <input type="text" disabled value={pacList.accountable?.cpfAccountable} />
                                                     </div>
                                                 </div>
                                             </div>

@@ -54,11 +54,11 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
     const [workplace, setWorkplace] = useState(pac.workplace);
 
     const [minor, setMinor] = useState(pac.minor);
-    const [accountable, setAccountable] = useState(pac.accountable);
-    const [accountableName, setAccountableName] = useState(accountable.name)
-    const [accountableKindship, setAccountableKindship] = useState(accountable.kindship)
-    const [accountableRg, setAccountableRg] = useState(accountable.rgAccountable)
-    const [accountableCpf, setAccountableCpf] = useState(accountable.cpfAccountable)
+    const [accountable, setAccountable] = useState(pac.accountable || null);
+    const [accountableName, setAccountableName] = useState(accountable?.name)
+    const [accountableKindship, setAccountableKindship] = useState(accountable?.kindship)
+    const [accountableRg, setAccountableRg] = useState(accountable?.rgAccountable)
+    const [accountableCpf, setAccountableCpf] = useState(accountable?.cpfAccountable)
 
 
     const [cep, setCep] = useState(pac.address.cep);
@@ -88,7 +88,7 @@ export function ModalEditPac({ isOpen, onRequestClose, pac }: ModalPacProps) {
 
         try {
             setLoading(true);
-            if (name === '' || birthDate === null || schooling === '' || rg === null || cpf === null || phone === null || career === '' || status === '' || workplace === '' || familyIncome === null || email === '') {
+            if (name === '' || birthDate === null || rg === null || cpf === null || phone === null || email === '') {
                 toast.error("Preencha todos os campos");
                 setLoading(false);
                 return;
