@@ -4,12 +4,10 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
-import Router from 'next/router';
-import { destroyCookie, setCookie, parseCookies } from 'nookies';
-import { json } from 'stream/consumers';
 
-import { FiLogOut, FiUser } from 'react-icons/fi'
+import { FiLogOut, FiUser, FiUserPlus, FiSmile } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/AuthContext';
+import { ModalEditUser } from '../../components/ModalEditUser';
 
 type UserProps = {
     id: string
@@ -26,8 +24,8 @@ interface data {
 export default function Dashboard(data: data) {
 
     const [userInfo, setUserInfo] = useState(data.user || "")
-    const { signOut} = useContext(AuthContext)
-    
+    const { signOut } = useContext(AuthContext)
+
     return (
         <>
             <Head>
@@ -41,30 +39,66 @@ export default function Dashboard(data: data) {
                         </div>
                     </div>
                     <div className={styles.content}>
-                        <div className={styles.card}>
-                            <div className={styles.userConteiner}>
-                                <div className={styles.circleUser}>
-                                    <FiUser size={50} />
+                        <div className={styles.contentTop}>
+                            <div className={styles.card}>
+                                <div className={styles.cardContent}>
+                                    <div className={styles.cardText}>
+                                        <h4>{userInfo.name}</h4>
+                                        <p>{userInfo.email}</p>
+                                        <p><strong>Matricula:</strong> {userInfo.registration}</p>
+                                    </div>
+                                    <div className={styles.circle} style={{ backgroundColor: "rgb(220, 20, 60)" }}>
+                                        <FiUser size={40} color="#fff" />
+                                    </div>
                                 </div>
-                                <div className={styles.userInfo}>
-                                    <h3>{userInfo.name}</h3>
-                                    <p><strong>Matricula:</strong> {userInfo.registration}</p>
-                                    <p><strong>email:</strong> {userInfo.email}</p>
+                                <div className={styles.userButtons}>
                                     <button className={styles.buttonSingOut} onClick={signOut}>
                                         <p>Sair</p>
                                         <FiLogOut color="#000" size={24} />
                                     </button>
+                                    <ModalEditUser
+                                        user={userInfo}
+                                    />
                                 </div>
                             </div>
+
+                            <div className={styles.card}>
+                                <Link href={'/patients'}>
+                                    <div className={styles.cardContent}>
+                                        <div className={styles.cardText}>
+                                            <h4>Paciente cadastrados</h4>
+                                            <h2>Total: 23</h2>
+                                        </div>
+                                        <div className={styles.circle} style={{ backgroundColor: "rgb(56, 190, 74)" }}>
+                                            <FiUserPlus color='#fff' size={35} />
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+
+                            <div className={styles.card}>
+                                <Link href={'/patients'}>
+                                    <div className={styles.cardContent}>
+                                        <div className={styles.cardText}>
+                                            <h4>Ultimo Paciente cadastrado</h4>
+                                            <h2>Alison Ferreira</h2>
+                                        </div>
+                                        <div className={styles.circle} style={{ backgroundColor: "rgb(43, 114, 247)" }}>
+                                            <FiSmile color='#fff' size={35} />
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
                         </div>
-                        <div className={styles.card}>
-                            <Link href={'/patients'}>
-                                <h2>Pacientes</h2>
-                                <p></p>
-                            </Link>
-                        </div>
-                        <div className={styles.card}>
-                            <h2>Agenda</h2>
+                        <div className={styles.supersCard}>
+                            <div className={styles.scheduleContainer}>
+                                <p>EM CONSTRUÇÃO: CALENDARIO</p>
+                            </div>
+
+                            <div className={styles.clockContainer}>
+                                <p>EM CONSTRUÇÃO: RELÓGIO</p>
+                            </div>
+
                         </div>
                     </div>
                 </main>
