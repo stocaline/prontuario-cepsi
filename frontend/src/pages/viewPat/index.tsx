@@ -12,6 +12,7 @@ import Modal from 'react-modal';
 import { parseCookies, destroyCookie } from 'nookies'
 import Link from 'next/link'
 import { Tab } from '@headlessui/react'
+import patientPdfGenerator from '../../utils/patientPdfGenerator'
 
 export type PatientsProps = {
     id: string,
@@ -36,7 +37,7 @@ export type PatientsProps = {
     charts: ChartProps[]
 }
 
-type CepsiInsertProps = {
+export type CepsiInsertProps = {
     type: string,
     forwarding_agency: string,
     forwarding_professional: string,
@@ -47,7 +48,7 @@ type CepsiInsertProps = {
     lenght_of_stay_in_months: string,
 }
 
-type AccountableProps = {
+export type AccountableProps = {
     id: string
     name: string
     kindship: string
@@ -55,7 +56,7 @@ type AccountableProps = {
     cpfAccountable: string
 }
 
-type AddressProps = {
+export type AddressProps = {
     id: string
     cep: string
     city: string
@@ -188,7 +189,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
                         <div>
-                            <button className={styles.buttonEdit}>
+                            <button className={styles.buttonEdit} onClick={() => patientPdfGenerator(pacList, insertionCepsi, chartList)}>
                                 <AiOutlinePrinter size={20} />
                             </button>
                             <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
