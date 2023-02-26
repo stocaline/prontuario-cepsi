@@ -9,7 +9,8 @@ Prontuario eletrônico para a CEPSI desenvolvido para tornar o processo de cadas
 
 ## Rodando o Projeto⚙️:
 ### Banco de dados:
-Intalar postgress
+Intalar o postgress
+
 Na primeira vez que rodar a aplicaação, deve-se rodar o comando ```` npx prisma migrate dev ```` dentro da pasta do backend para fazer a configuração inicial do banco
 
 ### Backend:
