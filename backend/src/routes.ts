@@ -11,7 +11,9 @@ import { CreateChartController } from './controllers/patient/chart/CreateChartCo
 import { DetailChartController } from './controllers/patient/chart/DetailChartController';
 import { CreateInsertController } from './controllers/patient/insertion/CreateInsertController';
 import { DetailInsertController } from './controllers/patient/insertion/DetailInsertController';
+
 import { isAuthenticated } from './middlewares/isAuthenticated'
+import { DetailUserInDashboardController } from './controllers/dashboard/DetailUserInDashboardController';
 
 const router = Router()
 
@@ -46,5 +48,8 @@ router.get('/patient/chart/detail/:id', isAuthenticated, new DetailChartControll
 router.post('/patient/insertion/:id', isAuthenticated, new CreateInsertController().handle)
 
 router.get('/patient/insertion/:id', isAuthenticated, new DetailInsertController().handle)
+
+//--Dashboard--
+router.get('/dashboard', isAuthenticated, new DetailUserInDashboardController().handle)
 
 export { router }

@@ -8,22 +8,27 @@ import { setupAPIClient } from '../../services/api'
 import { FiLogOut, FiUser, FiUserPlus, FiSmile } from 'react-icons/fi'
 import { AuthContext } from '../../contexts/AuthContext';
 import { ModalEditUser } from '../../components/ModalEditUser';
+import { PatientsProps } from '../viewPat';
 
 type UserProps = {
     id: string
     name: string
     email: string
+    admin: boolean
     registration: string
     patients: []
 }
 
 interface data {
-    user: UserProps
+    user: UserProps,
+    patientLengthData: number,
+    lastPatientData: PatientsProps,
 }
 
-export default function Dashboard(data: data) {
-
-    const [userInfo, setUserInfo] = useState(data.user || "")
+export default function Dashboard({ user, patientLengthData, lastPatientData}: data) {
+    const [userInfo, setUserInfo] = useState(user || "")
+    const [patientLength, setPatientLength] = useState(patientLengthData || "")
+    const [lastPatient, setLastPatient] = useState(lastPatientData || "")
     const { signOut } = useContext(AuthContext)
 
     return (
@@ -67,7 +72,7 @@ export default function Dashboard(data: data) {
                                     <div className={styles.cardContent}>
                                         <div className={styles.cardText}>
                                             <h4>Paciente cadastrados</h4>
-                                            <h2>Total: 23</h2>
+                                            <h2>Total: {patientLength}</h2>
                                         </div>
                                         <div className={styles.circle} style={{ backgroundColor: "rgb(56, 190, 74)" }}>
                                             <FiUserPlus color='#fff' size={35} />
@@ -81,7 +86,7 @@ export default function Dashboard(data: data) {
                                     <div className={styles.cardContent}>
                                         <div className={styles.cardText}>
                                             <h4>Ultimo Paciente cadastrado</h4>
-                                            <h2>Alison Ferreira</h2>
+                                            <h2>{lastPatient.name}</h2>
                                         </div>
                                         <div className={styles.circle} style={{ backgroundColor: "rgb(43, 114, 247)" }}>
                                             <FiSmile color='#fff' size={35} />
@@ -110,11 +115,13 @@ export default function Dashboard(data: data) {
 export const getServerSideProps = canSSRAuth(async (ctx: any) => {
 
     const apiClient = setupAPIClient(ctx);
-    const response = await apiClient.get(`/user/info`);
+    const response = await apiClient.get(`/dashboard`);
 
     return {
         props: {
-            user: response.data
+            user: response.data.user,
+            patientLengthData: response.data.patientLength,
+            lastPatientData: response.data.lastPatient
         }
     }
 })
