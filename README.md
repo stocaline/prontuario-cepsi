@@ -8,12 +8,16 @@
 Prontuario eletrônico para a CEPSI desenvolvido para tornar o processo de cadastro de paciente mais eficente e pratico, usando tecnologias como Node.js, React.js, Next.js e Typescript.
 
 ## Rodando o Projeto⚙️:
+### Banco de dados:
+Intalar postgress
+Na primeira vez que rodar a aplicaação, deve-se rodar o comando ```` npx prisma migrate dev ```` dentro da pasta do backend para fazer a configuração inicial do banco
+
 ### Backend:
 Na pasta backend execute o comando ```` yarn install ````
 
 Feito isso, crie um arquivo .env com as seguintes linhas
 ````
-PORT= (Porta que a aplicação será rodada. Exemplo: 3333)
+PORT= (Porta onde a aplicação será rodada. Exemplo: 3333)
 DATABASE_URL= (postgresql://janedoe:mypassword@localhost:5432/mydb?schema=sample)
 JWT_SECRET= (Chave unica para configurar JWT. Exemplo: chave)
 ````
