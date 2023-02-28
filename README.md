@@ -8,12 +8,17 @@
 Prontuario eletrônico para a CEPSI desenvolvido para tornar o processo de cadastro de paciente mais eficente e pratico, usando tecnologias como Node.js, React.js, Next.js e Typescript.
 
 ## Rodando o Projeto⚙️:
+### Banco de dados:
+Intalar o postgress
+
+Na primeira vez que rodar a aplicaação, deve-se rodar o comando ```` npx prisma migrate dev ```` dentro da pasta do backend para fazer a configuração inicial do banco
+
 ### Backend:
 Na pasta backend execute o comando ```` yarn install ````
 
 Feito isso, crie um arquivo .env com as seguintes linhas
 ````
-PORT= (Porta que a aplicação será rodada. Exemplo: 3333)
+PORT= (Porta onde a aplicação será rodada. Exemplo: 3333)
 DATABASE_URL= (postgresql://janedoe:mypassword@localhost:5432/mydb?schema=sample)
 JWT_SECRET= (Chave unica para configurar JWT. Exemplo: chave)
 ````
@@ -48,6 +53,6 @@ Com a instalação completa, basta rodar o comando ````yarn dev````
 + Nos prontuarios identificar pelo login quem está preenchendo o prontuário
 + permitir editar prontuarios.
 + No prontuario colocar os campos de data, horario e responsavel pelo atendimento (pegar lista dos usuarios)
-#### 3 Refazer o header da aplicação, com novo design e novas funções
+#### 3 Refazer o header e dashboard da aplicação, com novo design e novas funções
 + Nome de usuário desaparece ao reiniciar a pagina
 + Usuário conseguir editar seus dados
