@@ -6,9 +6,11 @@ import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
 
 import { FiLogOut, FiUser, FiUserPlus, FiSmile } from 'react-icons/fi'
+import { TbMoodSad } from 'react-icons/tb'
 import { AuthContext } from '../../contexts/AuthContext';
 import { ModalEditUser } from '../../components/ModalEditUser';
 import { PatientsProps } from '../viewPat';
+import { handleOpenViewPac } from '../patients';
 
 type UserProps = {
     id: string
@@ -27,7 +29,7 @@ interface data {
 
 export default function Dashboard({ user, patientLengthData, lastPatientData}: data) {
     const [userInfo, setUserInfo] = useState(user || "")
-    const [patientLength, setPatientLength] = useState(patientLengthData || "")
+    const [patientLength, setPatientLength] = useState(patientLengthData || 0)
     const [lastPatient, setLastPatient] = useState(lastPatientData || "")
     const { signOut } = useContext(AuthContext)
 
@@ -81,19 +83,31 @@ export default function Dashboard({ user, patientLengthData, lastPatientData}: d
                                 </Link>
                             </div>
 
-                            <div className={styles.card}>
-                                <Link href={'/patients'}>
-                                    <div className={styles.cardContent}>
-                                        <div className={styles.cardText}>
-                                            <h4>Ultimo Paciente cadastrado</h4>
-                                            <h2>{lastPatient.name}</h2>
+                            {lastPatient ?
+                                <div className={styles.card} style={{cursor: 'pointer'}} onClick={() =>handleOpenViewPac(lastPatient.id)}>
+                                        <div className={styles.cardContent}>
+                                            <div className={styles.cardText}>
+                                                <h4>Ultimo Paciente cadastrado</h4>
+                                                <h2>{lastPatient.name}</h2>
+                                            </div>
+                                            <div className={styles.circle} style={{ backgroundColor: "rgb(43, 114, 247)" }}>
+                                                <FiSmile color='#fff' size={35} />
+                                            </div>
                                         </div>
-                                        <div className={styles.circle} style={{ backgroundColor: "rgb(43, 114, 247)" }}>
-                                            <FiSmile color='#fff' size={35} />
+                                </div>
+
+                                :
+                                <div className={styles.card}>
+                                        <div className={styles.cardContent}>
+                                            <div className={styles.cardText}>
+                                                <h4>Não há pacientes cadastrados</h4>
+                                            </div>
+                                            <div className={styles.circle} style={{ backgroundColor: "rgb(43, 114, 247)" }}>
+                                                <TbMoodSad color='#fff' size={35} />
+                                            </div>
                                         </div>
-                                    </div>
-                                </Link>
-                            </div>
+                                </div>
+                            }
                         </div>
                         <div className={styles.supersCard}>
                             <div className={styles.scheduleContainer}>
@@ -101,7 +115,7 @@ export default function Dashboard({ user, patientLengthData, lastPatientData}: d
                             </div>
 
                             <div className={styles.clockContainer}>
-                                <p>EM CONSTRUÇÃO: RELÓGIO</p>
+                                <p>EM CONSTRUÇÃO: AVISOS</p>
                             </div>
 
                         </div>

@@ -16,10 +16,15 @@ class DetailUserInDashboardService {
         })
 
         const patientLength = user.patients.length
-        const lastPatient = user.patients.at(-1)
         
+        if (user.patients.at(-1)) {
+            var lastPatient = user.patients.at(-1)
+            return { user, patientLength, lastPatient }
+        } else {
+            lastPatient = null
+            return { user, patientLength, lastPatient }
 
-        return {user, patientLength, lastPatient}
+        }
     }
 }
 export { DetailUserInDashboardService }
