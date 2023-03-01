@@ -11,6 +11,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { ModalEditUser } from '../../components/ModalEditUser';
 import { PatientsProps } from '../viewPat';
 import { handleOpenViewPac } from '../patients';
+import { Calendar } from '../../components/Calendar';
 
 type UserProps = {
     id: string
@@ -111,7 +112,7 @@ export default function Dashboard({ user, patientLengthData, lastPatientData}: d
                         </div>
                         <div className={styles.supersCard}>
                             <div className={styles.scheduleContainer}>
-                                <p>EM CONSTRUÇÃO: CALENDARIO</p>
+                                <Calendar />
                             </div>
 
                             <div className={styles.clockContainer}>

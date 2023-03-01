@@ -1,0 +1,45 @@
+.container{
+    width: 100%;
+}
+
+.header{
+    width: 100%;
+    padding: 1rem;
+    display: grid;
+    place-content: center;
+    background-color: rgb(43, 114, 247);
+    color: white;
+    font-weight: 600;
+    font-size: 2rem;
+    
+}
+
+.weekDays{
+    margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    color: rgb(107, 107, 107);
+
+    p{
+        padding-top: 2rem;
+        padding-left: 2rem;
+    }
+}
+
+.mouthDays{
+    display: grid;
+    margin-right: 2rem;
+    margin-left: 1rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 3rem;
+    font-size: 1.2rem;
+    
+    p{
+        padding: 1rem;
+        border-radius: 1rem;
+    }
+
+    p:hover{
+        background-color: rgb(214, 214, 214);
+    }
+}
