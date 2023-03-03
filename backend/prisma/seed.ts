@@ -3,8 +3,6 @@ const prisma = new PrismaClient()
 const idOwner = "fb27f05d-ab95-443b-8bb5-de72c45f0c20"
 
 async function main() {
-    await prisma.patient.deleteMany()
-    
     await prisma.patient.create({
         data: {
             name:  "Marília Amaral Feltrin",
