@@ -1,6 +1,6 @@
 import prismaClient from "../../prisma";
 
-interface PatientRequest{
+interface PatientRequest {
     name: string;
     social_name: boolean;
     birthDate: Date;
@@ -19,7 +19,7 @@ interface PatientRequest{
     user_id: string
 }
 
-interface PatientAdressRequest{
+interface PatientAdressRequest {
     cep: string;
     city: string;
     state: string;
@@ -29,7 +29,7 @@ interface PatientAdressRequest{
     patient_id: string;
 }
 
-interface PatientAccountableRequest{
+interface PatientAccountableRequest {
     accountableName: string;
     kindship: string;
     rgAccountable: string;
@@ -37,27 +37,34 @@ interface PatientAccountableRequest{
     patient_id: string;
 }
 
-class CreatePatientService{
-    async createPatient({ user_id, name, social_name, schooling, birthDate,  gender, rg, cpf, status, phone, email, family_income, career, workplace, minor}: PatientRequest){
+class CreatePatientService {
+    async createPatient({ user_id, name, social_name, schooling, birthDate, gender, rg, cpf, status, phone, email, family_income, career, workplace, minor }: PatientRequest) {
 
-        const RGPatientAlreadyExists = await prismaClient.patient.findFirst({
-            where:{
-                rg: rg
-            }
-        })
-        const CPFPatientAlreadyExists = await prismaClient.patient.findFirst({
-            where:{
-                cpf: cpf
-            }
-        })
+        var RGPatientAlreadyExists = null
+        var CPFPatientAlreadyExists = null
 
-        if(RGPatientAlreadyExists || CPFPatientAlreadyExists){
+        if (rg != "") {
+            RGPatientAlreadyExists = await prismaClient.patient.findFirst({
+                where: {
+                    rg: rg
+                }
+            })
+        }
+        if (cpf != "") {
+            CPFPatientAlreadyExists = await prismaClient.patient.findFirst({
+                where: {
+                    cpf: cpf
+                }
+            })
+        }
+
+        if (RGPatientAlreadyExists || CPFPatientAlreadyExists) {
             throw new Error("Patient already exists")
         }
 
-        
+
         const patient = await prismaClient.patient.create({
-            
+
             data: {
                 name: name,
                 social_name: social_name,
@@ -75,18 +82,18 @@ class CreatePatientService{
                 Owner_id: user_id,
                 birthDate: birthDate,
             },
-            select:{
+            select: {
                 id: true,
             }
         })
-        
+
         return patient;
     }
-    
-    async createAdress({ cep, city, district, number, state, street, patient_id }: PatientAdressRequest){
-        try{
+
+    async createAdress({ cep, city, district, number, state, street, patient_id }: PatientAdressRequest) {
+        try {
             await prismaClient.address.create({
-                data:{
+                data: {
                     cep: cep,
                     city: city,
                     district: district,
@@ -96,14 +103,14 @@ class CreatePatientService{
                     patientId: patient_id,
                 }
             })
-        }catch(err){
+        } catch (err) {
             throw new Error(err)
         }
     }
-    async createAccountable({accountableName, kindship, rgAccountable, cpfAccountable, patient_id}: PatientAccountableRequest){
-        try{
+    async createAccountable({ accountableName, kindship, rgAccountable, cpfAccountable, patient_id }: PatientAccountableRequest) {
+        try {
             await prismaClient.accountable.create({
-                data:{
+                data: {
                     patientId: patient_id,
                     name: accountableName,
                     kindship: kindship,
@@ -111,7 +118,7 @@ class CreatePatientService{
                     cpfAccountable: cpfAccountable,
                 }
             })
-        }catch(err){
+        } catch (err) {
             throw new Error(err)
         }
     }

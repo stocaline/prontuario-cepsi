@@ -44,9 +44,6 @@ export default function RegisterPat() {
     const [street, setStreet] = useState('');
     const [number, setNumber] = useState('');
 
-    const [menuAdress, setMenuAdress] = useState(false)
-
-
     function verifyIfMinor(date: string) {
 
         setBirthDate(date)
@@ -76,10 +73,6 @@ export default function RegisterPat() {
     function handleChangeStatus(event: any) {
         setStatus(event.target.value)
 
-    }
-
-    function handleAdressMenu() {
-        setMenuAdress(!menuAdress)
     }
 
     async function handleRegister(event: FormEvent) {
@@ -146,8 +139,7 @@ export default function RegisterPat() {
             Router.push('/patients');
 
         } catch (err) {
-            console.log(err);
-            toast.error("Ops, erro ao cadastrar!")
+            toast.error("Ops, erro ao cadastrar! Paciente já existe!")
         }
     }
 
@@ -398,97 +390,86 @@ export default function RegisterPat() {
                             </div>
                         }
 
-                        <div className={!menuAdress ? styles.adressConteinerClose : styles.adressConteinerOpen}>
-                            <div onClick={handleAdressMenu} className={styles.menuAdress}>
-                                <h2>Endereço</h2>
-                                <div>
-                                    <label className={styles.containerHamburguer}>
-                                        <div className={styles.checkmark}>
-                                            <span></span>
-                                            <span></span>
-                                            <span></span>
-                                        </div>
+                        <div className={styles.menuAdress}>
+                            <h2>Endereço</h2>
+
+                            <div className={styles.formComponent}>
+                                <input
+                                    type="number"
+                                    placeholder=' '
+                                    className={styles.input}
+                                    value={cep}
+                                    onChange={(e) => setCep(e.target.value)}
+                                />
+                                <label className={styles.placeholder}>
+                                    CEP:
+                                </label>
+                            </div>
+                            <div className={styles.formComponent}>
+                                <input
+                                    type="text"
+                                    placeholder=' '
+                                    className={styles.input}
+                                    value={city}
+                                    onChange={(e) => setCity(e.target.value)}
+                                />
+                                <label className={styles.placeholder}>
+                                    Cidade:
+                                </label>
+                            </div>
+                            <div className={styles.formComponent}>
+                                <input
+                                    type="text"
+                                    placeholder=' '
+                                    className={styles.input}
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                                <label className={styles.placeholder}>
+                                    Estado:
+                                </label>
+                            </div>
+                            <div className={styles.formComponent}>
+                                <input
+                                    type="text"
+                                    placeholder=' '
+                                    className={styles.input}
+                                    value={district}
+                                    onChange={(e) => setDistrict(e.target.value)}
+                                />
+                                <label className={styles.placeholder}>
+                                    Bairro:
+                                </label>
+                            </div>
+
+                            <div className={styles.dualComponent}>
+                                <div className={styles.formComponent}>
+                                    <input
+                                        type="text"
+                                        placeholder=' '
+                                        className={styles.input}
+                                        value={street}
+                                        onChange={(e) => setStreet(e.target.value)}
+                                    />
+                                    <label className={styles.placeholder}>
+                                        Rua:
                                     </label>
                                 </div>
-                            </div>
-                            <div className={styles.adressContent}>
                                 <div className={styles.formComponent}>
                                     <input
                                         type="number"
                                         placeholder=' '
                                         className={styles.input}
-                                        value={cep}
-                                        onChange={(e) => setCep(e.target.value)}
+                                        value={number}
+                                        onChange={(e) => setNumber(e.target.value)}
                                     />
                                     <label className={styles.placeholder}>
-                                        CEP:
+                                        Numero:
                                     </label>
-                                </div>
-                                <div className={styles.formComponent}>
-                                    <input
-                                        type="text"
-                                        placeholder=' '
-                                        className={styles.input}
-                                        value={city}
-                                        onChange={(e) => setCity(e.target.value)}
-                                    />
-                                    <label className={styles.placeholder}>
-                                        Cidade:
-                                    </label>
-                                </div>
-                                <div className={styles.formComponent}>
-                                    <input
-                                        type="text"
-                                        placeholder=' '
-                                        className={styles.input}
-                                        value={state}
-                                        onChange={(e) => setState(e.target.value)}
-                                    />
-                                    <label className={styles.placeholder}>
-                                        Estado:
-                                    </label>
-                                </div>
-                                <div className={styles.formComponent}>
-                                    <input
-                                        type="text"
-                                        placeholder=' '
-                                        className={styles.input}
-                                        value={district}
-                                        onChange={(e) => setDistrict(e.target.value)}
-                                    />
-                                    <label className={styles.placeholder}>
-                                        Bairro:
-                                    </label>
-                                </div>
-
-                                <div className={styles.dualComponent}>
-                                    <div className={styles.formComponent}>
-                                        <input
-                                            type="text"
-                                            placeholder=' '
-                                            className={styles.input}
-                                            value={street}
-                                            onChange={(e) => setStreet(e.target.value)}
-                                        />
-                                        <label className={styles.placeholder}>
-                                            Rua:
-                                        </label>
-                                    </div>
-                                    <div className={styles.formComponent}>
-                                        <input
-                                            type="number"
-                                            placeholder=' '
-                                            className={styles.input}
-                                            value={number}
-                                            onChange={(e) => setNumber(e.target.value)}
-                                        />
-                                        <label className={styles.placeholder}>
-                                            Numero:
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <button className={styles.buttonAdd} type='submit'>
                             Cadastrar
