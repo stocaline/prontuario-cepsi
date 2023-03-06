@@ -110,7 +110,7 @@ export default function Home() {
                   type="submit"
                   loading={loading}
                 >
-                  Acessar
+                  ACESSAR
                 </Button>
               </form>
 
@@ -162,7 +162,7 @@ export default function Home() {
                   type="submit"
                   loading={loading}
                 >
-                  Acessar
+                  CRIAR CONTA
                 </Button>
               </form>
 
