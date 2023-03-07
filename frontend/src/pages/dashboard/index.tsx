@@ -12,6 +12,7 @@ import { ModalEditUser } from '../../components/ModalEditUser';
 import { PatientsProps } from '../viewPat';
 import { handleOpenViewPac } from '../patients';
 import { Calendar } from '../../components/Calendar';
+import { Menssages } from '../../components/Menssages';
 
 type UserProps = {
     id: string
@@ -115,8 +116,8 @@ export default function Dashboard({ user, patientLengthData, lastPatientData}: d
                                 <Calendar />
                             </div>
 
-                            <div className={styles.clockContainer}>
-                                <p>EM CONSTRUÇÃO: AVISOS</p>
+                            <div className={styles.alertContainer}>
+                                <Menssages />
                             </div>
 
                         </div>
