@@ -1,5 +1,8 @@
-import dayjs from 'dayjs';
+import { useState } from 'react';
+import moment from 'moment';
+import Moment from 'react-moment';
 import styles from './styles.module.scss';
+import 'moment/locale/pt-br';
 
 const weekdays = [
     "D",
@@ -11,68 +14,49 @@ const weekdays = [
     "S",
 ]
 
-const mouths = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "Julho",
-    "Agosto",
-    "Setembro",
-    "Outubro",
-    "Novembro",
-    "Dezembro",
-]
-
 export function Calendar() {
-    return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <p>{mouths.at(dayjs().month().valueOf())}</p>
-            </div>
-            <div className={styles.weekDays}>
-                {weekdays.map(day => (
-                        <p key={day}>{day}</p>
-                    ))
-                }
-            </div>
-            <div className={styles.mouthDays}>
-                <p>01</p>
-                <p>02</p>
-                <p>03</p>
-                <p>04</p>
-                <p>05</p>
-                <p>06</p>
-                <p>07</p>
-                <p>08</p>
-                <p>09</p>
-                <p>10</p>
-                <p>11</p>
-                <p>12</p>
-                <p>13</p>
-                <p>14</p>
-                <p>15</p>
-                <p>16</p>
-                <p>17</p>
-                <p>18</p>
-                <p>19</p>
-                <p>20</p>
-                <p>21</p>
-                <p>22</p>
-                <p>23</p>
-                <p>24</p>
-                <p>25</p>
-                <p>26</p>
-                <p>27</p>
-                <p>28</p>
-                <p>29</p>
-                <p>30</p>
-                
-            </div>
+
+    const [date, setDate] = useState(moment());
+
+    const previousMonth = () => {
+      setDate(moment(date).subtract(1, 'month'));
+    };
+  
+    const nextMonth = () => {
+      setDate(moment(date).add(1, 'month'));
+    };
+  
+    const renderDays = () => {
+      const monthStart = moment(date).startOf('month').locale('pt-br');
+      const monthEnd = moment(date).endOf('month');
+      const diff = monthEnd.diff(monthStart, 'days') + 1;
+      const days = Array.from({ length: diff }, (_, i) =>
+        moment(monthStart).add(i, 'days')
+      );
+  
+      return days.map((day) => (
+        <div className="day" key={day.format('D MMMM YYYY')}>
+          <p className="number">{day.format('DD')}</p>
         </div>
+      ));
+    };
+  
 
+    return (
 
+        <div className={styles.container}>
+        <div className={styles.header}>
+          <h2>
+            <Moment format="MMMM YYYY">{date}</Moment>
+          </h2>
+        </div>
+        <div className={styles.weekDays}>
+            {weekdays.map(day => (
+                <p key={day}>{day}</p>
+                ))
+            }
+        </div>
+        <div className={styles.mouthDays}>{renderDays()}</div>
+      </div>
     )
 }
