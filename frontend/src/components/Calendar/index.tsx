@@ -29,17 +29,22 @@ export function Calendar() {
     const renderDays = () => {
       const monthStart = moment(date).startOf('month').locale('pt-br');
       const monthEnd = moment(date).endOf('month');
+      const today = moment(date).format("DD")
       const diff = monthEnd.diff(monthStart, 'days') + 1;
       const days = Array.from({ length: diff }, (_, i) =>
         moment(monthStart).add(i, 'days')
       );
-  
-      return days.map((day) => (
-        <div className="day" key={day.format('D MMMM YYYY')}>
-          <p className="number">{day.format('DD')}</p>
-        </div>
-      ));
-    };
+
+    return days.map((day) => (
+      <div className="day" key={day.format('D MMMM YYYY')}>
+          {day.format("DD") ==  today ?
+            <p className={styles.toDay}>{day.format('DD')}</p>
+            :
+            <p >{day.format('DD')}</p>
+          }
+      </div>
+    ));
+  };
   
 
     return (
