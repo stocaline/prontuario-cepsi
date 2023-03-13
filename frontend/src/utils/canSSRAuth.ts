@@ -2,7 +2,10 @@ import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult
 import { parseCookies, destroyCookie } from 'nookies';
 import { AuthTokenError } from '../services/errors/AuthTokenError'
 
-export function canSSRAuth<P>(fn: GetServerSideProps<P>){
+type Props = {
+}
+
+export function canSSRAuth<P extends Props>(fn: GetServerSideProps<P>){
     return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
         const cookies = parseCookies(ctx);
 
