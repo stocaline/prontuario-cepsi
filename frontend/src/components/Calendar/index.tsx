@@ -28,7 +28,6 @@ export function Calendar() {
 
   const renderDays = () => {
     const today = moment(date).format("DD")
-    // const firstWeekDay = 
 
     const monthStart = moment(date).startOf('month').locale('pt-br');
     const monthEnd = moment(date).endOf('month');
