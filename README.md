@@ -11,7 +11,7 @@ Prontuario eletrônico para a CEPSI desenvolvido para tornar o processo de cadas
 ### Banco de dados:
 Instalar o postgress
 
-Na primeira vez que rodar a aplicaação, deve-se rodar o comando ```` npx prisma migrate dev ```` dentro da pasta do backend para fazer a configuração inicial do banco
+Na primeira vez que rodar a aplicaação, deve-se rodar o comando ````npx prisma generate ````` para iniciar o prisma, e ```` npx prisma migrate dev ```` dentro da pasta do backend para fazer a configuração inicial do banco
 
 ### Backend:
 Na pasta backend execute o comando ```` yarn install ````
