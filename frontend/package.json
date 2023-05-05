@@ -23,7 +23,6 @@
     "nookies": "^2.5.2",
     "pdfmake": "^0.2.7",
     "react": "18.2.0",
-    "react-burger-menu": "^2.9.2",
     "react-dom": "18.2.0",
     "react-headless-tabs": "^6.0.3",
     "react-icons": "^4.7.1",
@@ -37,7 +36,6 @@
     "@types/moment": "^2.13.0",
     "@types/node": "18.11.9",
     "@types/react": "18.0.25",
-    "@types/react-burger-menu": "^2.8.3",
     "@types/react-dom": "18.0.9",
     "@types/react-modal": "^3.13.1",
     "typescript": "4.9.3"

@@ -4,15 +4,13 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from './styles.module.scss'
 import { setupAPIClient } from '../../services/api'
-
 import { FiLogOut, FiUser, FiUserPlus, FiSmile } from 'react-icons/fi'
 import { TbMoodSad } from 'react-icons/tb'
 import { AuthContext } from '../../contexts/AuthContext';
 import { ModalEditUser } from '../../components/ModalEditUser';
 import { PatientsProps } from '../viewPat';
 import { handleOpenViewPac } from '../patients';
-import { Calendar } from '../../components/Calendar';
-import { Menssages } from '../../components/Menssages';
+import { Patients } from '../../components/PatientTable';
 
 type UserProps = {
     id: string
@@ -20,7 +18,7 @@ type UserProps = {
     email: string
     admin: boolean
     registration: string
-    patients: []
+    patients: PatientsProps[]
 }
 
 interface data {
@@ -111,15 +109,8 @@ export default function Dashboard({ user, patientLengthData, lastPatientData}: d
                                 </div>
                             }
                         </div>
-                        <div className={styles.supersCard}>
-                            <div className={styles.scheduleContainer}>
-                                <Calendar />
-                            </div>
-
-                            <div className={styles.alertContainer}>
-                                <Menssages />
-                            </div>
-
+                        <div className={styles.patientConteiner}>
+                            <Patients patients={user.patients} />
                         </div>
                     </div>
                 </main>
