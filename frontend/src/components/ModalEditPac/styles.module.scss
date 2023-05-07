@@ -24,6 +24,50 @@
     }
 }
 
+.bottomTabs {
+    margin: 15px 0 0 0;
+    border-bottom: 2px solid #e2e2e2;
+    padding: 0;
+
+    button {
+        position: relative;
+        margin: 0 3px;
+        padding: 8px;
+        outline: 0;
+        border: 0;
+        border-radius: 4px;
+        background-color: transparent;
+        font-weight: 600;
+        color: #474747;
+    }
+
+    button:hover,
+    .bottomTabsSelect {
+        color: rgb(52, 124, 231);
+    }
+
+    button::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+
+        content: "";
+        height: 2px;
+        width: 0%;
+        background-color: rgb(52, 124, 231);
+        transition: 0.4s;
+    }
+
+    button:hover::after,
+    .bottomTabsSelect::after {
+        width: 100%;
+    }
+}
+
+.editFormContainer{
+    margin-top: 1rem;
+}
+
 .formContainer{
     display: flex;
     flex-direction: row;
