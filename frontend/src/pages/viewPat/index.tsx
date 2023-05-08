@@ -99,6 +99,10 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
 
     const [bottomTabsIndex, setBottomTabsIndex] = useState(0)
 
+    function pdfGenerator(pacList:PatientsProps, insertionCepsi:CepsiInsertProps, chartList:ChartProps){
+        window.open("PDFModel", "minhaJanela", "width=500,height=300");
+    }
+
     function verifyIfMinor(minor: any) {
         if (minor == 0) {
             return false
@@ -189,7 +193,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
                         <div>
-                            <button className={styles.buttonEdit} onClick={() => patientPdfGenerator(pacList, insertionCepsi, chartList)}>
+                            <button className={styles.buttonEdit} onClick={() => pdfGenerator(pacList, insertionCepsi, chartList)}>
                                 <AiOutlinePrinter size={20} />
                             </button>
                             <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
