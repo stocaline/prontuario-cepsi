@@ -14,10 +14,10 @@
     color: white;
     display: flex;
     justify-content: center;
-
+    
     .header{
-       width: 87%;
-       padding-top: 2rem;
+        width: 87%;
+        padding-top: 2rem;
     }
 }
 
@@ -44,6 +44,7 @@
     border-radius: .5rem;
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.26);
+    animation: fadeIn 1s both;
 }
 
 .cardContent{
@@ -54,7 +55,7 @@
     align-items: center;
     
     .cardText{
-         
+        
         h4{
             color: rgba(0, 0, 0, 0.575);
         }
@@ -76,17 +77,18 @@
     border: 0;
     border-radius: .3rem;
     transition: transform 1s;
-
+    
     &:hover {
         background-color: rgb(253, 60, 60);
         color: white;
     }
-
+    
 }
 
 .patientConteiner{
     display: flex;
     width: 90%;
+    animation: fadeIn 1s both;
 }
 
 .circle{
@@ -102,5 +104,17 @@
     p{
         margin-top: 0;
         color: #000000;
+    }
+}
+
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+        top: 40px;
+    }
+    100%{
+        opacity: 1;
+        top: 20px;
     }
 }
