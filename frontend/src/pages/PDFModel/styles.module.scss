@@ -1,0 +1,48 @@
+.pdf{
+    width: 100%;
+    margin: auto;
+}
+.titulo{
+    font-family: Verdana;
+    font-size: larger;
+    top: 5rem;
+    text-align: center;
+    position: relative;
+}
+.subtitulo{
+    font-family: Verdana;
+    top: 6rem;
+    text-align: center;
+    position: relative;
+    margin-left: -2rem;
+}
+.gen{
+    margin-left: 4rem;
+    margin-right: 2rem;
+}
+.linhaH{
+    margin-right: 1rem;
+    flex: 1;
+    margin-top: -5;
+}
+.dta{
+    margin-left: 2.5rem;
+    margin-right: 1rem;
+}
+.numid{
+    margin-left: 5rem;
+}
+.containerHeader{
+    display: flex;
+    flex-direction: row;
+}
+.content{
+    width: 100%;
+    border: 1px solid black;
+}
+.title{
+    text-align: center;
+}
+.logoHeader{
+    margin-left: 40rem;
+}

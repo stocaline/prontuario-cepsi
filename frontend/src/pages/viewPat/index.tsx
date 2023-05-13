@@ -12,7 +12,6 @@ import Modal from 'react-modal';
 import { parseCookies, destroyCookie } from 'nookies'
 import Link from 'next/link'
 import { Tab } from '@headlessui/react'
-import patientPdfGenerator from '../../utils/patientPdfGenerator'
 
 export type PatientsProps = {
     id: string,
@@ -78,11 +77,10 @@ type OwnerProps = {
     registration: string
 }
 
-interface HomeProps {
+export interface HomeProps {
     pacs: PatientsProps;
     owner: OwnerProps
 }
-
 
 export default function ViewPat({ pacs, owner }: HomeProps) {
     const [pacList, setPacList] = useState(pacs || []);
@@ -99,7 +97,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
 
     const [bottomTabsIndex, setBottomTabsIndex] = useState(0)
 
-    function pdfGenerator(pacList:PatientsProps, insertionCepsi:CepsiInsertProps, chartList:ChartProps){
+    function pdfGenerator(){
         window.open("PDFModel", "minhaJanela", "width=500,height=300");
     }
 
@@ -193,7 +191,7 @@ export default function ViewPat({ pacs, owner }: HomeProps) {
                     <div className={styles.containerHeader}>
                         <h1>Informações do Paciente</h1>
                         <div>
-                            <button className={styles.buttonEdit} onClick={() => pdfGenerator(pacList, insertionCepsi, chartList)}>
+                            <button className={styles.buttonEdit} onClick={() => pdfGenerator()}>
                                 <AiOutlinePrinter size={20} />
                             </button>
                             <button className={styles.buttonEdit} onClick={() => handleOpenEditPac()}>
